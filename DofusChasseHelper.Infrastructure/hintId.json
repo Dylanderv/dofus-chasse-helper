@@ -1,0 +1,931 @@
+[{
+  "clueid": "0",
+  "hintfr": "???",
+  "hinten": "???",
+  "hintes": "???"
+}, {
+  "clueid": "1",
+  "hintfr": "Affiche de carte au trésor",
+  "hinten": "Treasure Map Poster",
+  "hintes": "Afiche de mapa del tesoro"
+}, {
+  "clueid": "2",
+  "hintfr": "Aiguille à coudre",
+  "hinten": "Sewing needle",
+  "hintes": "Aguja de coser"
+}, {
+  "clueid": "3",
+  "hintfr": "Ancre dorée",
+  "hinten": "Golden Anchor",
+  "hintes": "Ancla dorada"
+}, {
+  "clueid": "4",
+  "hintfr": "Anneau d"or",
+  "hinten": "Gold Ring",
+  "hintes": "Anillo de oro"
+}, {
+  "clueid": "5",
+  "hintfr": "Arbre à épines",
+  "hinten": "Prickly Tree",
+  "hintes": "Árbol con espinas"
+}, {
+  "clueid": "6",
+  "hintfr": "Arbre à moitié coupé",
+  "hinten": "Half-Felled Tree",
+  "hintes": "Árbol medio cortado"
+}, {
+  "clueid": "7",
+  "hintfr": "Arbre à trous",
+  "hinten": "Holey Tree",
+  "hintes": "Árbol agujereado"
+}, {
+  "clueid": "8",
+  "hintfr": "Arbre arc-en-ciel",
+  "hinten": "Rainbow Tree",
+  "hintes": "Árbol arcoiris"
+}, {
+  "clueid": "9",
+  "hintfr": "Arbre ensanglanté",
+  "hinten": "Bloody Tree",
+  "hintes": "Árbol ensangrentado"
+}, {
+  "clueid": "10",
+  "hintfr": "Arbre glacé",
+  "hinten": "Frozen Tree",
+  "hintes": "Árbol helado"
+}, {
+  "clueid": "11",
+  "hintfr": "Arche naturelle",
+  "hinten": "Natural Arch",
+  "hintes": "Arco natural"
+}, {
+  "clueid": "12",
+  "hintfr": "Balançoire macabre",
+  "hinten": "Macabre Swing",
+  "hintes": "Columpio macabro"
+}, {
+  "clueid": "13",
+  "hintfr": "Ballons en forme de coeur",
+  "hinten": "Heart Balloons",
+  "hintes": "Globos con forma de corazón"
+}, {
+  "clueid": "14",
+  "hintfr": "Bannière bontarienne déchirée",
+  "hinten": "Torn Bontarian Banner",
+  "hintes": "Banda bontariana rasgada"
+}, {
+  "clueid": "15",
+  "hintfr": "Bannière brâkmarienne déchirée",
+  "hinten": "Torn Brakmarian Banner",
+  "hintes": "Banda brakmariana rasgada"
+}, {
+  "clueid": "16",
+  "hintfr": "Barque coulée",
+  "hinten": "Sunken Boat",
+  "hintes": "Barca zozobrada"
+}, {
+  "clueid": "17",
+  "hintfr": "Blé noir et blanc",
+  "hinten": "Black and White Wheat",
+  "hintes": "Trigo blanco y negro"
+}, {
+  "clueid": "18",
+  "hintfr": "Bombe coeur",
+  "hinten": "Heart Bomb",
+  "hintes": "Bomba corazón"
+}, {
+  "clueid": "19",
+  "hintfr": "Bonbon bleu",
+  "hinten": "Blue Sweet",
+  "hintes": "Caramelo azul"
+}, {
+  "clueid": "20",
+  "hintfr": "Bonhomme de neige fondu",
+  "hinten": "Melted Snowman",
+  "hintes": "Muñeco de nieve fundido"
+}, {
+  "clueid": "21",
+  "hintfr": "Bougie dans un trou",
+  "hinten": "Candle in a Hole",
+  "hintes": "Vela en un agujero"
+}, {
+  "clueid": "22",
+  "hintfr": "Boule dorée de marin",
+  "hinten": "Gold Sailor Ball",
+  "hintes": "Bola dorada de marinero"
+}, {
+  "clueid": "23",
+  "hintfr": "Bouton de couture",
+  "hinten": "Button",
+  "hintes": "Botón de costura"
+}, {
+  "clueid": "24",
+  "hintfr": "Buisson poupée sadida",
+  "hinten": "Sadida Doll Bush",
+  "hintes": "Arbusto muñecas sadida"
+}, {
+  "clueid": "25",
+  "hintfr": "Cactus à fleur bleue",
+  "hinten": "Blue-Flowered Cactus",
+  "hintes": "Cactus con flor azul"
+}, {
+  "clueid": "26",
+  "hintfr": "Cactus sans épines",
+  "hinten": "Spineless Cactus",
+  "hintes": "Cactus sin espinas"
+}, {
+  "clueid": "27",
+  "hintfr": "Cadran solaire",
+  "hinten": "Sundial",
+  "hintes": "Esfera solar"
+}, {
+  "clueid": "28",
+  "hintfr": "Cairn",
+  "hinten": "Cairn",
+  "hintes": "Cairn"
+}, {
+  "clueid": "29",
+  "hintfr": "Canard en plastique",
+  "hinten": "Rubber Duck",
+  "hintes": "Patito de plástico"
+}, {
+  "clueid": "30",
+  "hintfr": "Canne à kebab",
+  "hinten": "Kebab Pole",
+  "hintes": "Caña para kebab"
+}, {
+  "clueid": "31",
+  "hintfr": "Carapace de tortue",
+  "hinten": "Tortoise Shell",
+  "hintes": "Caparazón de tortuga"
+}, {
+  "clueid": "32",
+  "hintfr": "Casque à cornes",
+  "hinten": "Horned Helmet",
+  "hintes": "Casco con cuernos"
+}, {
+  "clueid": "33",
+  "hintfr": "Ceinture cloutée",
+  "hinten": "Studded Belt",
+  "hintes": "Cinturón claveteado"
+}, {
+  "clueid": "34",
+  "hintfr": "Cerf-volant shinkansen",
+  "hinten": "Shinkansen Kite",
+  "hintes": "Cometa shinkansen"
+}, {
+  "clueid": "35",
+  "hintfr": "Champignon rayé",
+  "hinten": "Striped Mushroom",
+  "hintes": "Champiñon rayado"
+}, {
+  "clueid": "36",
+  "hintfr": "Chapeau dé",
+  "hinten": "Dice Hat",
+  "hintes": "Sombrero dado"
+}, {
+  "clueid": "37",
+  "hintfr": "Chaussette à pois",
+  "hinten": "Spotted Sock",
+  "hintes": "Calcetín con lunares"
+}, {
+  "clueid": "38",
+  "hintfr": "Clef dorée",
+  "hinten": "Golden Key",
+  "hintes": "Llave dorada"
+}, {
+  "clueid": "39",
+  "hintfr": "Cocotte origami",
+  "hinten": "Origami Hen",
+  "hintes": "Pajarita origami"
+}, {
+  "clueid": "40",
+  "hintfr": "Coeur dans un nénuphar",
+  "hinten": "Heart in a Waterlily",
+  "hintes": "Corazón en un nenúfar"
+}, {
+  "clueid": "41",
+  "hintfr": "Coquillage à pois",
+  "hinten": "Spotted Shell",
+  "hintes": "Valva con lunares"
+}, {
+  "clueid": "42",
+  "hintfr": "Corail avec des dents",
+  "hinten": "Coral with Teeth",
+  "hintes": "Coral con dientes"
+}, {
+  "clueid": "43",
+  "hintfr": "Corail flûtiste",
+  "hinten": "Flute Coral",
+  "hintes": "Coral flautista"
+}, {
+  "clueid": "44",
+  "hintfr": "Corne de likrone",
+  "hinten": "Unikron Horn",
+  "hintes": "Cuerno de urikornio"
+}, {
+  "clueid": "45",
+  "hintfr": "Crâ cramé",
+  "hinten": "Charred Cra",
+  "hintes": "Ocra carbonizado"
+}, {
+  "clueid": "46",
+  "hintfr": "Crâne dans un trou",
+  "hinten": "Skull in a Hole",
+  "hintes": "Cráneo en un agujero"
+}, {
+  "clueid": "47",
+  "hintfr": "Crâne de Crâ",
+  "hinten": "Cra Skull",
+  "hintes": "Cráneo de ocra"
+}, {
+  "clueid": "48",
+  "hintfr": "Crâne de cristal",
+  "hinten": "Crystal Skull",
+  "hintes": "Cráneo de cristal"
+}, {
+  "clueid": "49",
+  "hintfr": "Crâne de likrone",
+  "hinten": "Unikron Skull",
+  "hintes": "Cráneo de urikornio"
+}, {
+  "clueid": "50",
+  "hintfr": "Crâne de likrone dans la glace",
+  "hinten": "Unikron Skull in Ice",
+  "hintes": "Cráneo de urikornio en el hielo"
+}, {
+  "clueid": "51",
+  "hintfr": "Crâne de renne",
+  "hinten": "Deer Skull",
+  "hintes": "Cráneo de reno"
+}, {
+  "clueid": "52",
+  "hintfr": "Crâne de Roublard",
+  "hinten": "Rogue Skull",
+  "hintes": "Cráneo de tymador"
+}, {
+  "clueid": "53",
+  "hintfr": "Croix en pierre brisée",
+  "hinten": "Broken Stone Cross",
+  "hintes": "Cruz de piedra rota"
+}, {
+  "clueid": "54",
+  "hintfr": "Dé en glace",
+  "hinten": "Ice Die",
+  "hintes": "Dado de hielo"
+}, {
+  "clueid": "55",
+  "hintfr": "Dessin au pipi dans la neige",
+  "hinten": "Pee Drawing in the Snow",
+  "hintes": "Dibujo con pipí en la nieve"
+}, {
+  "clueid": "56",
+  "hintfr": "Dessin de croix dans un cercle",
+  "hinten": "Drawing of an X in a Circle",
+  "hintes": "Dibujo de cruz en un círculo"
+}, {
+  "clueid": "57",
+  "hintfr": "Dessin dragodinde",
+  "hinten": "Dragoturkey Drawing",
+  "hintes": "Dibujo de dragopavo"
+}, {
+  "clueid": "58",
+  "hintfr": "Dessin koalak",
+  "hinten": "Koalak Drawing",
+  "hintes": "Dib de koalak"
+}, {
+  "clueid": "59",
+  "hintfr": "Dofus en bois",
+  "hinten": "Wooden Dofus",
+  "hintes": "Dofus de madera"
+}, {
+  "clueid": "60",
+  "hintfr": "Dolmen",
+  "hinten": "Dolmen",
+  "hintes": "Dolmen"
+}, {
+  "clueid": "61",
+  "hintfr": "Échelle cassée",
+  "hinten": "Broken Ladder",
+  "hintes": "Escalera rota"
+}, {
+  "clueid": "62",
+  "hintfr": "Éolienne à quatre pales",
+  "hinten": "Four-Bladed Windmill",
+  "hintes": "Aerogenerador de cuatro aspas"
+}, {
+  "clueid": "63",
+  "hintfr": "Épée prise dans la glace",
+  "hinten": "Sword Caught in Ice",
+  "hintes": "Espada atrapada en el hielo"
+}, {
+  "clueid": "64",
+  "hintfr": "Épouvantail à pipe",
+  "hinten": "Scarecrow with a Pipe",
+  "hintes": "Espantapájaros con pipa"
+}, {
+  "clueid": "65",
+  "hintfr": "Étoile en papier plié",
+  "hinten": "Folded Paper Star",
+  "hintes": "Estrella de papel plegado"
+}, {
+  "clueid": "66",
+  "hintfr": "Étoile jaune peinte",
+  "hinten": "Yellow Painted Star",
+  "hintes": "Estrella amarilla pintada"
+}, {
+  "clueid": "67",
+  "hintfr": "Étoile rouge en papier",
+  "hinten": "Red Paper Star",
+  "hintes": "Estrella roja de papel"
+}, {
+  "clueid": "68",
+  "hintfr": "Étoile verte en papier",
+  "hinten": "Green Paper Star",
+  "hintes": "Estrella verde de papel"
+}, {
+  "clueid": "69",
+  "hintfr": "Fer à cheval",
+  "hinten": "Horseshoe",
+  "hintes": "Herradura"
+}, {
+  "clueid": "70",
+  "hintfr": "Filon de cristaux multicolores",
+  "hinten": "Vein of Multicoloured Crystals",
+  "hintes": "Filón de cristales multicolor"
+}, {
+  "clueid": "71",
+  "hintfr": "Flèche dans une pomme",
+  "hinten": "Arrow Through an Api",
+  "hintes": "Flecha en una manzana"
+}, {
+  "clueid": "72",
+  "hintfr": "Fleur de nénuphar bleue",
+  "hinten": "Blue Waterlily Flower",
+  "hintes": "Flor de nenúfar azul"
+}, {
+  "clueid": "73",
+  "hintfr": "Fleurs smiley",
+  "hinten": "Smiley Flowers",
+  "hintes": "Flores emoticono"
+}, {
+  "clueid": "74",
+  "hintfr": "Framboisier",
+  "hinten": "Raspberry Bush",
+  "hintes": "Frambueso"
+}, {
+  "clueid": "75",
+  "hintfr": "Girouette dragodinde",
+  "hinten": "Dragoturkey Weathervane",
+  "hintes": "Veleta de dragopavo"
+}, {
+  "clueid": "76",
+  "hintfr": "Grand coquillage cassé",
+  "hinten": "Large broken seashell",
+  "hintes": "Gran concha rota"
+}, {
+  "clueid": "77",
+  "hintfr": "Gravure d"aile",
+  "hinten": "Wing Engraving",
+  "hintes": "Grabado de ala"
+}, {
+  "clueid": "78",
+  "hintfr": "Gravure d"arakne",
+  "hinten": "Arachnee Engraving",
+  "hintes": "Grabado de arakna"
+}, {
+  "clueid": "79",
+  "hintfr": "Gravure de bouftou",
+  "hinten": "Gobball Engraving",
+  "hintes": "Grabado de jalató"
+}, {
+  "clueid": "80",
+  "hintfr": "Gravure de boule de poche",
+  "hinten": "Pocket Ball Engraving",
+  "hintes": "Grabado de poketbola"
+}, {
+  "clueid": "81",
+  "hintfr": "Gravure de chacha",
+  "hinten": "Bow Meow Engraving",
+  "hintes": "Grabado de miaumiau"
+}, {
+  "clueid": "82",
+  "hintfr": "Gravure de clef",
+  "hinten": "Key Engraving",
+  "hintes": "Grabado de llave"
+}, {
+  "clueid": "83",
+  "hintfr": "Gravure de croix",
+  "hinten": "Cross Engraving",
+  "hintes": "Grabado de cruz"
+}, {
+  "clueid": "84",
+  "hintfr": "Gravure de Dofus",
+  "hinten": "Dofus Engraving",
+  "hintes": "Grabado de dofus"
+}, {
+  "clueid": "85",
+  "hintfr": "Gravure de dragodinde",
+  "hinten": "Dragoturkey Engraving",
+  "hintes": "Grabado de dragopavo"
+}, {
+  "clueid": "86",
+  "hintfr": "Gravure de Firefoux",
+  "hinten": "Firefoux Engraving",
+  "hintes": "Grabado de firefux"
+}, {
+  "clueid": "87",
+  "hintfr": "Gravure de Gelax",
+  "hinten": "Jellix Engraving",
+  "hintes": "Grabado de Gelax"
+}, {
+  "clueid": "88",
+  "hintfr": "Gravure de point",
+  "hinten": "Dot Engraving",
+  "hintes": "Grabado de punto"
+}, {
+  "clueid": "89",
+  "hintfr": "Gravure de rose des vents",
+  "hinten": "Compass Rose Engraving",
+  "hintes": "Grabado de rosa de los vientos"
+}, {
+  "clueid": "90",
+  "hintfr": "Gravure de spirale",
+  "hinten": "Spiral Engraving",
+  "hintes": "Grabado de espiral"
+}, {
+  "clueid": "91",
+  "hintfr": "Gravure de tofu",
+  "hinten": "Tofu Engraving",
+  "hintes": "Grabado de tofu"
+}, {
+  "clueid": "92",
+  "hintfr": "Gravure de wabbit",
+  "hinten": "Wabbit Engraving",
+  "hintes": "Grabado de wabbit"
+}, {
+  "clueid": "93",
+  "hintfr": "Grelot",
+  "hinten": "Bell",
+  "hintes": "Cascabel"
+}, {
+  "clueid": "94",
+  "hintfr": "Hache brisée",
+  "hinten": "Broken Axe",
+  "hintes": "Hacha rota"
+}, {
+  "clueid": "95",
+  "hintfr": "Kaliptus à fleurs jaunes",
+  "hinten": "Yellow-flowered Kaliptus",
+  "hintes": "Kalipto de flores amarillas"
+}, {
+  "clueid": "96",
+  "hintfr": "Kaliptus coupé",
+  "hinten": "Cut Kaliptus",
+  "hintes": "Kalipto cortado"
+}, {
+  "clueid": "97",
+  "hintfr": "Kaliptus grignoté",
+  "hinten": "Nibbled Kaliptus",
+  "hintes": "Kalipto arrasado"
+}, {
+  "clueid": "98",
+  "hintfr": "Kama peint",
+  "hinten": "Painted Kama",
+  "hintes": "Kama pintado"
+}, {
+  "clueid": "99",
+  "hintfr": "Lampadaire fungus",
+  "hinten": "Fungus Lamppost",
+  "hintes": "Farola fongo"
+}, {
+  "clueid": "100",
+  "hintfr": "Lampion bleu",
+  "hinten": "Blue Paper Lantern",
+  "hintes": "Farolillo azul"
+}, {
+  "clueid": "101",
+  "hintfr": "Langue dans un trou",
+  "hinten": "Tongue in a Hole",
+  "hintes": "Lengua en un agujero"
+}, {
+  "clueid": "102",
+  "hintfr": "Lanterne au crâne luminescent",
+  "hinten": "Lantern with a Glowing Skull",
+  "hintes": "Candil con cráneo luminiscente"
+}, {
+  "clueid": "103",
+  "hintfr": "Lapino origami",
+  "hinten": "Origami Coney",
+  "hintes": "Cunejo origami"
+}, {
+  "clueid": "104",
+  "hintfr": "Logo Ankama peint",
+  "hinten": "Painted Ankama Logo",
+  "hintes": "Logo de Ankama pintado"
+}, {
+  "clueid": "105",
+  "hintfr": "Marionnette",
+  "hinten": "Puppet",
+  "hintes": "Marioneta"
+}, {
+  "clueid": "106",
+  "hintfr": "Menottes",
+  "hinten": "Cuffs",
+  "hintes": "Esposas"
+}, {
+  "clueid": "107",
+  "hintfr": "Minouki",
+  "hinten": "Kitty-Neko",
+  "hintes": "Miauki"
+}, {
+  "clueid": "108",
+  "hintfr": "Moufles jaunes",
+  "hinten": "Yellow Mittens",
+  "hintes": "Manoplas amarillas"
+}, {
+  "clueid": "109",
+  "hintfr": "Moufles rouges",
+  "hinten": "Red Mittens",
+  "hintes": "Manoplas rojas"
+}, {
+  "clueid": "110",
+  "hintfr": "Niche dans une caisse",
+  "hinten": "Crate Kennel",
+  "hintes": "Caseta en una caja"
+}, {
+  "clueid": "111",
+  "hintfr": "Obélisque enfoui",
+  "hinten": "Buried Obelisk",
+  "hintes": "Obelisco enterrado"
+}, {
+  "clueid": "112",
+  "hintfr": "Oeil de shushu peint",
+  "hinten": "Painted Shushu Eye",
+  "hintes": "Ojo de fab"huritu pintado"
+}, {
+  "clueid": "113",
+  "hintfr": "Oeuf dans un trou",
+  "hinten": "Egg in a Hole",
+  "hintes": "Huevo en un agujero"
+}, {
+  "clueid": "114",
+  "hintfr": "Ornement flocon",
+  "hinten": "Snowflake Ornament",
+  "hintes": "Ornamento copo"
+}, {
+  "clueid": "115",
+  "hintfr": "Os dans la lave",
+  "hinten": "Bone in Lava",
+  "hintes": "Hueso en la lava"
+}, {
+  "clueid": "116",
+  "hintfr": "Paire de lunettes",
+  "hinten": "Pair of Glasses",
+  "hintes": "Par de gafas"
+}, {
+  "clueid": "117",
+  "hintfr": "Palmier à feuilles carrées",
+  "hinten": "Palm Tree with Square Fronds",
+  "hintes": "Palmera con hojas cuadradas"
+}, {
+  "clueid": "118",
+  "hintfr": "Palmier à feuilles déchirées",
+  "hinten": "Palm Tree with Torn Fronds",
+  "hintes": "Palmera con hojas rotas"
+}, {
+  "clueid": "119",
+  "hintfr": "Palmier à pois",
+  "hinten": "Spotted Palm Tree",
+  "hintes": "Palmera con lunares"
+}, {
+  "clueid": "120",
+  "hintfr": "Palmier peint à rayures",
+  "hinten": "Palm Tree with Painted Stripes",
+  "hintes": "Palmera con rayas pintadas"
+}, {
+  "clueid": "121",
+  "hintfr": "Palmier peint d"un chacha",
+  "hinten": "Palm Tree with Painted Bow Meow",
+  "hintes": "Palmera con miaumiau pintado"
+}, {
+  "clueid": "122",
+  "hintfr": "Palmier surchargé de noix de coco",
+  "hinten": "Palm Tree Overloaded with Coconuts",
+  "hintes": "Palmera sobrecargada de cocos"
+}, {
+  "clueid": "123",
+  "hintfr": "Palmifleur bleu fleuri",
+  "hinten": "Blue Flowering Palmflower",
+  "hintes": "Palmiflor azul florecida"
+}, {
+  "clueid": "124",
+  "hintfr": "Palmifleur jaune fleuri",
+  "hinten": "Yellow Flowering Palmflower",
+  "hintes": "Palmiflor amarillo florecida"
+}, {
+  "clueid": "125",
+  "hintfr": "Palmifleur vert fleuri",
+  "hinten": "Green Flowering Palmflower",
+  "hintes": "Palmiflor verde florecida"
+}, {
+  "clueid": "126",
+  "hintfr": "Panneau nonosse",
+  "hinten": "Bone Sign",
+  "hintes": "Cartel de huesito"
+}, {
+  "clueid": "127",
+  "hintfr": "Peinture de Dofus",
+  "hinten": "Dofus Painting",
+  "hintes": "Pintura de dofus"
+}, {
+  "clueid": "128",
+  "hintfr": "Peluche de likrone",
+  "hinten": "Stuffed Unikron",
+  "hintes": "Peluche de urikornio"
+}, {
+  "clueid": "129",
+  "hintfr": "Phorreur sournois / baveux / chafouin / fourbe",
+  "hinten": "Phorreur",
+  "hintes": "Phorreur"
+}, {
+  "clueid": "130",
+  "hintfr": "Pioche plantée",
+  "hinten": "Planted Pickaxe",
+  "hintes": "Pico clavado"
+}, {
+  "clueid": "147",
+  "hintfr": "Poisson grillé embroché",
+  "hinten": "Grilled Fish on a Skewer",
+  "hintes": "Pescado a la plancha en brocheta"
+}, {
+  "clueid": "148",
+  "hintfr": "Poupée koalak",
+  "hinten": "Koalak Doll",
+  "hintes": "Muñeca koalak"
+}, {
+  "clueid": "149",
+  "hintfr": "Queue d"Osamodas",
+  "hinten": "Osamodas Tail",
+  "hintes": "Cola de osamodas"
+}, {
+  "clueid": "150",
+  "hintfr": "Rocher à sédimentation verticale",
+  "hinten": "Vertical Sedimentation Rock",
+  "hintes": "Roca de sedimentación vertical"
+}, {
+  "clueid": "151",
+  "hintfr": "Rocher crâne",
+  "hinten": "Skull Rock",
+  "hintes": "Roca cráneo"
+}, {
+  "clueid": "152",
+  "hintfr": "Rocher dé",
+  "hinten": "Die Rock",
+  "hintes": "Roca dado"
+}, {
+  "clueid": "153",
+  "hintfr": "Rocher Dofus",
+  "hinten": "Dofus Rock",
+  "hintes": "Roca dofus"
+}, {
+  "clueid": "154",
+  "hintfr": "Rocher percé",
+  "hinten": "Pierced Rock",
+  "hintes": "Roca agujereada"
+}, {
+  "clueid": "155",
+  "hintfr": "Rocher taillé en arètes de poisson",
+  "hinten": "Rock Carved into Fish Bones",
+  "hintes": "Roca tallada en espinas de pescado"
+}, {
+  "clueid": "156",
+  "hintfr": "Rose des vents dorée",
+  "hinten": "Golden Compass Rose",
+  "hintes": "Rosa de los vientos dorada"
+}, {
+  "clueid": "157",
+  "hintfr": "Rose noire",
+  "hinten": "Black Rose",
+  "hintes": "Rosa negra"
+}, {
+  "clueid": "158",
+  "hintfr": "Rouage pris dans la glace",
+  "hinten": "Cog Caught in Ice",
+  "hintes": "Rueda dentada atrapada en el hielo"
+}, {
+  "clueid": "159",
+  "hintfr": "Ruban bleu noué",
+  "hinten": "Knotted Blue Ribbon",
+  "hintes": "Lazo azul anudado"
+}, {
+  "clueid": "160",
+  "hintfr": "Rune nimbos",
+  "hinten": "Stubbyob Rune",
+  "hintes": "Runa taponano"
+}, {
+  "clueid": "161",
+  "hintfr": "Sapin couché",
+  "hinten": "Felled Pine Tree",
+  "hintes": "Abeto tumbado"
+}, {
+  "clueid": "162",
+  "hintfr": "Serrure dorée",
+  "hinten": "Golden Lock",
+  "hintes": "Cerradura dorada"
+}, {
+  "clueid": "163",
+  "hintfr": "Sève qui s"écoule",
+  "hinten": "Flowing Sap",
+  "hintes": "Savia que cae"
+}, {
+  "clueid": "164",
+  "hintfr": "Slip à petit coeur",
+  "hinten": "Heart Undies",
+  "hintes": "Braga con corazón"
+}, {
+  "clueid": "165",
+  "hintfr": "Soupe de bananagrumes",
+  "hinten": "Citronana Soup",
+  "hintes": "Sopa de bananaranjas"
+}, {
+  "clueid": "166",
+  "hintfr": "Squelette d"Ouginak pendu",
+  "hinten": "Hanging Ouginak Skeleton",
+  "hintes": "Esqueleto de uginak coldado"
+}, {
+  "clueid": "167",
+  "hintfr": "Statue koalak",
+  "hinten": "Koalak Statue",
+  "hintes": "Estatua de koalak"
+}, {
+  "clueid": "168",
+  "hintfr": "Statue sidoa",
+  "hinten": "Rotcere Statue",
+  "hintes": "Estatua de móguiz"
+}, {
+  "clueid": "169",
+  "hintfr": "Statue wabbit",
+  "hinten": "Wabbit Statue",
+  "hintes": "Estatua de wabbit"
+}, {
+  "clueid": "170",
+  "hintfr": "Stèle chacha",
+  "hinten": "Bow Meow Stele",
+  "hintes": "Estatua de miaumiau"
+}, {
+  "clueid": "171",
+  "hintfr": "Sucre d"orge",
+  "hinten": "Candy Cane",
+  "hintes": "Bastón de caramelo"
+}, {
+  "clueid": "172",
+  "hintfr": "Symbole de quête peint",
+  "hinten": "Painted Quest Symbol",
+  "hintes": "Símbolo de misión pintado"
+}, {
+  "clueid": "173",
+  "hintfr": "Talisman en papier",
+  "hinten": "Paper Talisman",
+  "hintes": "Talismán de papel"
+}, {
+  "clueid": "174",
+  "hintfr": "Tambour à rayures",
+  "hinten": "Striped Drum",
+  "hintes": "Tambor con rayas"
+}, {
+  "clueid": "175",
+  "hintfr": "Tambour papatte",
+  "hinten": "Pawpaw Drum",
+  "hintes": "Tambor con patita"
+}, {
+  "clueid": "176",
+  "hintfr": "Théière à rayures",
+  "hinten": "Striped Teapot",
+  "hintes": "Tetera con rayas"
+}, {
+  "clueid": "177",
+  "hintfr": "Tissu à carreaux noué",
+  "hinten": "Knotted Chequered Cloth",
+  "hintes": "Tela de cuadros anudada"
+}, {
+  "clueid": "178",
+  "hintfr": "Tombe gravée d"un bouclier",
+  "hinten": "Tomb with an Engraved Shield",
+  "hintes": "Tumba grabada con un escudo"
+}, {
+  "clueid": "179",
+  "hintfr": "Tombe inondée",
+  "hinten": "Flooded Tomb",
+  "hintes": "Tumba inundada"
+}, {
+  "clueid": "180",
+  "hintfr": "Tombe inondée de sang",
+  "hinten": "Blood-Filled Tomb",
+  "hintes": "Tumba inundada de sangre"
+}, {
+  "clueid": "181",
+  "hintfr": "Torii cassé",
+  "hinten": "Broken Torii",
+  "hintes": "Torii roto"
+}, {
+  "clueid": "182",
+  "hintfr": "Trace de main en sang",
+  "hinten": "Bloody Handprint",
+  "hintes": "Huella de mano ensangrentada"
+}, {
+  "clueid": "183",
+  "hintfr": "Tricycle",
+  "hinten": "Tricycle",
+  "hintes": "Triciclo"
+}, {
+  "clueid": "184",
+  "hintfr": "Trou mielleux",
+  "hinten": "Honey Hole",
+  "hintes": "Agujero meloso"
+}, {
+  "clueid": "185",
+  "hintfr": "Tube rempli de tofus",
+  "hinten": "Tube of Tofus",
+  "hintes": "Tubo lleno de tofus"
+}, {
+  "clueid": "186",
+  "hintfr": "Gravure d"Epée",
+  "hinten": "Sword Engraving",
+  "hintes": "Grabado de espada"
+}, {
+  "clueid": "187",
+  "hintfr": "Gravure d"étoile",
+  "hinten": "Star Engraving",
+  "hintes": "Grabado de estrella"
+}, {
+  "clueid": "188",
+  "hintfr": "Gravure d"oeil",
+  "hinten": "Eye Engraving",
+  "hintes": "Grabado de ojo"
+}, {
+  "clueid": "189",
+  "hintfr": "Gravure de coeur",
+  "hinten": "Heart Engraving",
+  "hintes": "Grabado del corazón"
+}, {
+  "clueid": "190",
+  "hintfr": "Gravure de crâne",
+  "hinten": "Skull Engraving",
+  "hintes": "Grabado del cráneo"
+}, {
+  "clueid": "191",
+  "hintfr": "Gravure de fantôme",
+  "hinten": "Ghost Engraving",
+  "hintes": "Grabado fantasma"
+}, {
+  "clueid": "192",
+  "hintfr": "Gravure de flèche",
+  "hinten": "Arrow Engraving",
+  "hintes": "Grabado de flecha"
+}, {
+  "clueid": "193",
+  "hintfr": "Gravure de fleur",
+  "hinten": "Flower Engraving",
+  "hintes": "Grabado de flor"
+}, {
+  "clueid": "194",
+  "hintfr": "Gravure de Kama",
+  "hinten": "Kama Engraving",
+  "hintes": "Grabado de kama"
+}, {
+  "clueid": "195",
+  "hintfr": "Gravure de logo Ankama",
+  "hinten": "Ankama Logo Engraving",
+  "hintes": "Grabado de logo de Ankama"
+}, {
+  "clueid": "196",
+  "hintfr": "Gravure de lune",
+  "hinten": "Moon Engraving",
+  "hintes": "Grabado de luna"
+}, {
+  "clueid": "197",
+  "hintfr": "Gravure de papatte",
+  "hinten": "Pawpaw Engraving",
+  "hintes": "Grabado de patita"
+}, {
+  "clueid": "198",
+  "hintfr": "Gravure de soleil",
+  "hinten": "Sun Engraving",
+  "hintes": "Grabado de sol"
+}, {
+  "clueid": "199",
+  "hintfr": "Gravure de symbole de quête",
+  "hinten": "Quest Symbol Engraving",
+  "hintes": "Grabado de símbolo de misión"
+}, {
+  "clueid": "200",
+  "hintfr": "Gravure de symbole égal",
+  "hinten": "Equals Sign Engraving",
+  "hintes": "Grabado de símbolo igual"
+}, {
+  "clueid": "201",
+  "hintfr": "Gravure de wukin",
+  "hinten": "Wukin Engraving",
+  "hintes": "Grabado de wukin"
+}]
