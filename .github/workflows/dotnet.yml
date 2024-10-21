@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: Main
 
 on:
   push:
@@ -14,16 +14,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
     - name: Dotnet Publish
       run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
 
@@ -40,20 +45,11 @@ jobs:
       id: version
       uses: paulhatch/semantic-version@v5.4.0
       with:
-        # The prefix to use to identify tags
         tag_prefix: "v"
-        # A string which, if present in a git commit, indicates that a change represents a
-        # major (breaking) change, supports regular expressions wrapped with '/'
         major_pattern: "(MAJOR)"
-        # A string which indicates the flags used by the `major_pattern` regular expression. Supported flags: idgs
         major_regexp_flags: ""
-        # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
         minor_pattern: "(MINOR)"
-        # A string to determine the format of the version output
         version_format: "${major}.${minor}.${patch}"
-
-    - name: archive release
-      run: echo ${{ steps.version.output.version}}
     
     - name: Create Draft Release
       id: create_release
@@ -61,8 +57,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.version.output.version}}
-        release_name: ${{steps.version.output.version}}
+        tag_name: ${{ steps.version.outputs.version }}
+        release_name: ${{ steps.version.outputs.version }}
         draft: true
         prerelease: false
 
