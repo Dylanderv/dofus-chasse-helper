@@ -30,7 +30,7 @@ jobs:
       run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
 
     - name: test
-      run: ls -la
+      run: ls -la artifact
 
     - uses: actions/checkout@master
     - name: Archive Release
