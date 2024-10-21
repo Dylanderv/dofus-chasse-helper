@@ -26,7 +26,6 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-
     - name: Dotnet Publish
-      uses: EasyDesk/action-dotnet-publish@v1.0.0
+      run: dotnet publish -c Release --self-contained -r win-x64
           
