@@ -51,6 +51,9 @@ jobs:
         minor_pattern: "(MINOR)"
         # A string to determine the format of the version output
         version_format: "${major}.${minor}.${patch}"
+
+    - name: archive release
+      run: echo ${{ steps.version.output.version}}
     
     - name: Create Draft Release
       id: create_release
