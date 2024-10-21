@@ -58,8 +58,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: version.output.version
-        release_name: version.output.version
+        tag_name: ${{version.output.version}}
+        release_name: ${{version.output.version}}
         draft: true
         prerelease: false
 
