@@ -27,7 +27,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Dotnet Publish
-      run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
+      run: dotnet publish -c Release --self-contained -r win-x64 -o /artifact
 
 
     - uses: actions/checkout@master
@@ -35,16 +35,15 @@ jobs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
-        directory: './artifact'
+        directory: '/artifact'
         filename: 'release.zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
 
     
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
         name: publish
-        path: ./artifact/release.zip
+        path: /artifact/release.zip
 
     - name: Database Version
       id: db-version
