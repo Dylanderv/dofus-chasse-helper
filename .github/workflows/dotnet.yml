@@ -6,9 +6,7 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    
 jobs:
   build:
 
@@ -29,25 +27,17 @@ jobs:
     - name: Dotnet Publish
       run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
 
+    - name: archive release
+      run: zip -r release.zip ./artifact
 
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.5
-      with:
-        type: 'zip'
-        directory: './artifact'
-        filename: 'release.zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
-
-    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
         name: publish
-        path: ./artifact/release.zip
+        path: ./release.zip
 
-    - name: Database Version
-      id: db-version
+    - name: Get Version
+      id: version
       uses: paulhatch/semantic-version@v5.4.0
       with:
         # The prefix to use to identify tags
@@ -61,7 +51,6 @@ jobs:
         minor_pattern: "(MINOR)"
         # A string to determine the format of the version output
         version_format: "${major}.${minor}.${patch}"
-
     
     - name: Create Draft Release
       id: create_release
@@ -69,8 +58,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: db-version.output.version
-        release_name: db-version.output.version
+        tag_name: version.output.version
+        release_name: version.output.version
         draft: true
         prerelease: false
 
@@ -79,7 +68,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/release.zip
+        asset_path: ./release.zip
         asset_name: release.zip
         asset_content_type: application/zip
 
