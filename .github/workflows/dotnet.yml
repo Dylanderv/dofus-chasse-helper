@@ -27,8 +27,10 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Dotnet Publish
-      run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
+      run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact --no-restore --no-build
 
+    - name: test
+      run: ls -la
 
     - uses: actions/checkout@master
     - name: Archive Release
