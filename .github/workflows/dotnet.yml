@@ -37,7 +37,7 @@ jobs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
-        path: './artifact'
+        directory: './artifact'
         filename: 'release.zip'
 
     
