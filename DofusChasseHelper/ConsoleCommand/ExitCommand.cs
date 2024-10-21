@@ -14,6 +14,8 @@ public class ExitCommand : IConsoleCommand
         _headlessBrowserSetup = headlessBrowserSetup;
     }
 
+    public string Command => "exit";
+
     public async Task<int> Run(params string[] args)
     {
         await AnsiConsole.Progress()
@@ -38,6 +40,9 @@ public class ExitCommand : IConsoleCommand
 
     public IReadOnlyCollection<Markup> Usage()
     {
-        throw new NotImplementedException();
+        return
+        [
+            new Markup("Close the running browser and stop the app")
+        ];
     }
 }

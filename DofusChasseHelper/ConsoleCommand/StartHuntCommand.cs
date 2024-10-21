@@ -12,6 +12,8 @@ public class StartHuntCommand : IConsoleCommand
     {
         _action = action;
     }
+    
+    public string Command => "start";
 
     public async Task<int> Run(params string[] args)
     {
@@ -22,6 +24,9 @@ public class StartHuntCommand : IConsoleCommand
 
     public IReadOnlyCollection<Markup> Usage()
     {
-        throw new NotImplementedException();
+        return
+        [
+            new Markup("Initialize the hunt from the start location in the hunt box and find the first hint location")
+        ];
     }
 }

@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using dofus_chasse_helper.ConsoleCommand.Abstractions;
 using DofusChasseHelper.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,10 +11,15 @@ public static class IServiceCollectionExtensions
     {
         serviceCollection
             .AddSingleton<HelpCommand>()
+            .AddSingleton<IConsoleCommand, HelpCommand>(sp => sp.GetRequiredService<HelpCommand>())
             .AddSingleton<StartHuntCommand>()
+            .AddSingleton<IConsoleCommand, StartHuntCommand>(sp => sp.GetRequiredService<StartHuntCommand>())
             .AddSingleton<NextPositionCommand>()
+            .AddSingleton<IConsoleCommand, NextPositionCommand>(sp => sp.GetRequiredService<NextPositionCommand>())
             .AddSingleton<ExitCommand>()
-            .AddSingleton<InitBrowserCommand>();
+            .AddSingleton<IConsoleCommand, ExitCommand>(sp => sp.GetRequiredService<ExitCommand>())
+            .AddSingleton<InitBrowserCommand>()
+            .AddSingleton<IConsoleCommand, InitBrowserCommand>(sp => sp.GetRequiredService<InitBrowserCommand>());
 
         serviceCollection.AddSingleton<IConsoleLogger, ConsoleLogger>();
         

@@ -8,6 +8,7 @@ namespace dofus_chasse_helper.ConsoleCommand;
 public class InitBrowserCommand : IConsoleCommand
 {
     private readonly IHeadlessBrowserSetup _headlessBrowserSetup;
+    public string Command => "none";
 
     public InitBrowserCommand(IHeadlessBrowserSetup headlessBrowserSetup)
     {
@@ -16,25 +17,14 @@ public class InitBrowserCommand : IConsoleCommand
 
     public async Task<int> Run(params string[] args)
     {
-        await AnsiConsole.Progress()
-            .StartAsync(async ctx => 
+        await AnsiConsole.Status()
+            .StartAsync("[green]Downloading browser[/]", async ctx =>
             {
-                var download = ctx.AddTask("[green]Downloading browser[/]", new ProgressTaskSettings()
-                {
-                    MaxValue = 1
-                });
-                var startingBrowser = ctx.AddTask("[green]Starting browser[/]", new ProgressTaskSettings()
-                {
-                    MaxValue = 1
-                });
-                
-                download.StartTask();
+                ctx.Spinner(Spinner.Known.GrowHorizontal);
                 await this._headlessBrowserSetup.DownloadBrowserIfNecessary();
-                download.Increment(1);
-                
-                startingBrowser.StartTask();
+
+                ctx.Status("[green]Starting browser[/]");
                 await this._headlessBrowserSetup.StartBrowser();
-                startingBrowser.Increment(1);
             });
         
         
@@ -45,6 +35,6 @@ public class InitBrowserCommand : IConsoleCommand
 
     public IReadOnlyCollection<Markup> Usage()
     {
-        throw new NotImplementedException();
+        return [];
     }
 }

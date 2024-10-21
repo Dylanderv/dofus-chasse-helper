@@ -21,8 +21,6 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var consoleCommandDispatcher = new ConsoleCommandDispatcher(serviceProvider);
 
-AnsiConsole.MarkupLine("Running necessary setups...");
-
 await consoleCommandDispatcher.Dispatch<InitBrowserCommand>();
 
 await consoleCommandDispatcher.Dispatch<HelpCommand>();

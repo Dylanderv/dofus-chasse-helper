@@ -13,14 +13,15 @@ public class NextPositionCommand : IConsoleCommand
         NegativeSign = "-"
     };
     
-    public const string Command = "next";
-    
     private readonly GetNextPositionAction _action;
 
     public NextPositionCommand(GetNextPositionAction action)
     {
         _action = action;
     }
+
+    public string Command => "next";
+    public string Args => "[[x y]]";
 
     public async Task<int> Run(params string[] args)
     {
@@ -42,7 +43,6 @@ public class NextPositionCommand : IConsoleCommand
         return
         [
             new Markup("Find next position"),
-            new Markup($"{Command} (X Y)"),
             new Markup("You can force the current position by adding the coordinates after the command"),
             new Markup($"ex: {Command} -3 18")
         ];
