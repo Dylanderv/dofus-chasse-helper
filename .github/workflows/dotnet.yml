@@ -45,15 +45,6 @@ jobs:
       with:
         name: publish
         path: ./artifact/release.zip
-          
-  release:
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Download a single artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: publish
 
     - name: Database Version
       id: db-version
@@ -88,7 +79,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release.zip
+        asset_path: ./artifact/release.zip
         asset_name: release.zip
         asset_content_type: application/zip
 
