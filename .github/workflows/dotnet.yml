@@ -23,11 +23,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --self-contained -r win-x64
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Dotnet Publish
-      run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact --no-restore --no-build
+      run: dotnet publish -c Release --self-contained -r win-x64 -o ./artifact
 
     - name: test
       run: ls -la
