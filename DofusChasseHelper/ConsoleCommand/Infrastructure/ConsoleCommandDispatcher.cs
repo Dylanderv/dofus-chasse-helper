@@ -1,5 +1,6 @@
 using dofus_chasse_helper.ConsoleCommand.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Spectre.Console;
 
 namespace dofus_chasse_helper.ConsoleCommand.Infrastructure;
 
@@ -14,8 +15,23 @@ public class ConsoleCommandDispatcher
 
     public async Task<int> Dispatch<TConsoleCommand>(params string[] args) where TConsoleCommand : IConsoleCommand
     {
-        var consoleCommand = this._serviceProvider.GetRequiredService<TConsoleCommand>();
+        try
+        {
+            var consoleCommand = this._serviceProvider.GetRequiredService<TConsoleCommand>();
 
-        return await consoleCommand.Run(args);
+            return await consoleCommand.Run(args);
+        }
+        catch (Exception e)
+        {
+            AnsiConsole.MarkupLine(string.Empty);
+            AnsiConsole.MarkupLine(string.Empty);
+            AnsiConsole.MarkupLine("An error occured while running the command");
+            AnsiConsole.WriteException(e);
+
+            AnsiConsole.MarkupLine(string.Empty);
+            AnsiConsole.MarkupLine(string.Empty);
+
+            return 1;
+        }
     }
 }
