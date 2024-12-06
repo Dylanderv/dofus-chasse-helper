@@ -4,6 +4,7 @@ using DofusChasseHelper.Domain;
 using DofusChasseHelper.Domain.External;
 using DofusChasseHelper.Infrastructure.Exceptions;
 using DofusChasseHelper.Infrastructure.Extensions;
+using Flurl.Http.Testing;
 using Tesseract;
 using ImageFormat = System.Drawing.Imaging.ImageFormat;
 using Rect = Tesseract.Rect;
@@ -13,15 +14,19 @@ namespace DofusChasseHelper.Infrastructure;
 public class OcrEngine : IOcrEngine
 {
     private readonly Cv2Engine _cv2Engine;
-    private const string TessdataPath = @"C:\tessdata";
-    private const string BasePath = @"C:\temp";
+    // private const string TessdataPath = @"C:\tessdata";
+    private const string TessdataPath = @".\tessdata";
+    // private const string BasePath = @"C:\temp";
+    private const string BasePath = @".\base";
     
-    private const bool IsDebug = false;
+    private const bool IsDebug = true;
     private static readonly string[] HeaderDebugDirectoryPathParts = ["debug", "header"];
     private static readonly string[] FooterDebugDirectoryPathParts = ["debug", "footer"];
     private static readonly string[] BoxDetailsDebugDirectoryPathParts = ["debug", "boxDetails"];
 
     private static readonly string[] AproxBoxImagePathParts = ["roughbox.png"];
+    private static readonly string[] CurrentPosFullImagePathParts = ["currPosFull.png"];
+    private static readonly string[] CurrentPosImagePathParts = ["currPos.png"];
     private static readonly string[] BoxImagePathParts = ["found.png"];
     private static readonly string[] CurrentImagePathParts = ["process-action-current.png"];
     
@@ -33,6 +38,10 @@ public class OcrEngine : IOcrEngine
     public OcrEngine(Cv2Engine cv2Engine)
     {
         _cv2Engine = cv2Engine;
+        Directory.CreateDirectory(BasePath);
+        Directory.CreateDirectory(BuildPath(HeaderDebugDirectoryPathParts));
+        Directory.CreateDirectory(BuildPath(FooterDebugDirectoryPathParts));
+        Directory.CreateDirectory(BuildPath(BoxDetailsDebugDirectoryPathParts));
     }
 
     private TesseractEngine GetEngine()
@@ -51,6 +60,34 @@ public class OcrEngine : IOcrEngine
     {
         using var process = engine.Process(image, pageSegMode);
         return process.GetSegmentedRegions(pageIteratorLevel);
+    }
+
+    public async Task<Coords> GetCurrentPos(Bitmap sourceImage)
+    {
+        var sourceImagePath = BuildPath(CurrentPosFullImagePathParts);
+        sourceImage.Save(sourceImagePath);
+
+        var chestMatch = await this._cv2Engine.GetChestMatch(sourceImagePath);
+        
+        var rectangle = new Rectangle(chestMatch.Point with { X = Math.Max(chestMatch.Point.X - 250, 0) }, new Size(chestMatch.Point.X, 25));
+
+        var subImage = SaveSubImage(sourceImage, rectangle, CurrentPosImagePathParts);
+
+        var tesseractEngine = this.GetEngine();
+        var process = tesseractEngine.Process(subImage);
+
+        var text = process.GetText();
+
+        IReadOnlyCollection<string> enumerable = text.Split(' ').Take(2).ToList();
+        //
+        //
+        // var skipLast = text.Split("Niveau").First().Split('-').SkipLast(1);
+        // var join = string.Join('-', skipLast);
+        // var strings = join.Split(',');
+
+        var coords = new Coords(int.Parse(enumerable.First().Trim().TrimEnd(',')), int.Parse(enumerable.Last().Trim()));
+
+        return coords;
     }
     
     public Task<(Coords startPosition, Hint firstHint)> GetFirstHint(Bitmap sourceImage)

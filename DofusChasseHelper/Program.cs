@@ -2,12 +2,9 @@
 using dofus_chasse_helper.ConsoleCommand;
 using dofus_chasse_helper.ConsoleCommand.Configurations;
 using dofus_chasse_helper.ConsoleCommand.Infrastructure;
-using DofusChasseHelper.Application;
 using DofusChasseHelper.Application.Configurations;
 using DofusChasseHelper.Domain.Configurations;
 using DofusChasseHelper.Infrastructure.Configuration;
-using GlobalHotKeys;
-using GlobalHotKeys.Native.Types;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
@@ -19,6 +16,10 @@ serviceCollection.AddInfrastructure();
 serviceCollection.AddConsoleCommands();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
+
+var panel = new Panel("Hello World");
+
+AnsiConsole.Write(panel);
 
 var consoleCommandDispatcher = new ConsoleCommandDispatcher(serviceProvider);
 
@@ -44,7 +45,6 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
     
     var command = argv[0];
     var commandArgs = argv[1..];
-    
 
     switch (command)
     {
@@ -57,6 +57,12 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
         case "next":
             await consoleCommandDispatcher.Dispatch<NextPositionCommand>(commandArgs);
             break;
+        case "/travel":
+            await consoleCommandDispatcher.Dispatch<NextPositionAlternativeCommand>(commandArgs);
+            break;
+        case "update":
+            await consoleCommandDispatcher.Dispatch<UpdatePosWithCurrentCharPosCommand>(commandArgs);
+            break;
         case "exit":
             await consoleCommandDispatcher.Dispatch<ExitCommand>(commandArgs);
             break;
@@ -65,19 +71,4 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
             await consoleCommandDispatcher.Dispatch<HelpCommand>(commandArgs);
             break;
     }
-}
-
-
-// await Action(host.Services);
-
-static async Task Action(IServiceProvider hostProvider)
-{
-    using IServiceScope serviceScope = hostProvider.CreateScope();
-    IServiceProvider provider = serviceScope.ServiceProvider;
-
-    var command = provider.GetRequiredService<StartHuntAction>();
-    
-    await command.Run();
-    
-    Console.WriteLine("Done");
 }

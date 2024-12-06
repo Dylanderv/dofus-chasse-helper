@@ -6,4 +6,6 @@ public interface IOcrEngine
 {
     Task<(Coords startPosition, Hint firstHint)> GetFirstHint(Bitmap sourceImage);
     Task<Hint> GetNextHint(Bitmap sourceImage);
+    Task<Coords> GetCurrentPos(Bitmap sourceImage);
+
 }

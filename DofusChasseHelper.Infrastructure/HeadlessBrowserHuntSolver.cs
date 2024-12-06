@@ -161,7 +161,12 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
         }
 
         var autoCopyCommand = await this._page.QuerySelectorAsync(InputAutoCopySelector);
-        await autoCopyCommand.ClickAsync();
+
+        var htmlButtonElement = autoCopyCommand.ToDomHandle<HtmlInputElement>();
+        if ((await htmlButtonElement.GetCheckedAsync()) == false)
+        {
+            await autoCopyCommand.ClickAsync();
+        }
 
         var buttonSubmit = await this._page.QuerySelectorAsync(ButtonSubmitSelector);
         await buttonSubmit.ClickAsync();

@@ -8,7 +8,6 @@ namespace DofusChasseHelper.Domain;
 public class HuntSolver
 {
     private Coords? CurrentPosition { get; set; }
-    
     private Hint? NextHint { get; set; }
 
     public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger)
@@ -17,7 +16,8 @@ public class HuntSolver
 
         (Coords startPosition, Hint firstHint) = await ocrEngine.GetFirstHint(screenShot);
 
-        this.CurrentPosition = startPosition;
+        this.UpdatePosition(startPosition, consoleLogger);
+
         this.NextHint = firstHint;
         
         consoleLogger.LogInfo($"Hunt start position: {startPosition.X},{startPosition.Y}");
@@ -64,7 +64,8 @@ public class HuntSolver
 
         await clipboardService.SetInClipboard(autopilotCommand);
 
-        this.CurrentPosition = destination;
+        this.UpdatePosition(destination, consoleLogger);
+
         
         consoleLogger.LogInfo($"Found hint position: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
     }
@@ -73,10 +74,34 @@ public class HuntSolver
 
     public void ForceCurrentPosition(Coords forcedCurrentPosition, IConsoleLogger consoleLogger)
     {
-        this.CurrentPosition = forcedCurrentPosition;
-        
+        this.UpdatePosition(forcedCurrentPosition, consoleLogger);
+
         consoleLogger.LogInfo($"Hunt current position forced at: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
+    }
+
+    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger)
+    {
+        var screenShot = screenshotProvider.ScreenShot();
+
+        var currentPos = await ocrEngine.GetCurrentPos(screenShot);
+
+        this.UpdatePosition(currentPos, consoleLogger);
+        
+        consoleLogger.LogInfo($"New position: {currentPos.X},{currentPos.Y}");
+    }
+
+    private void UpdatePosition(Coords newCoords, IConsoleLogger logger)
+    {
+        this.CurrentPosition = newCoords;
+        logger.NotifyHuntSolverState(this.BuildState());
+    }
+
+    private HuntSolverState BuildState()
+    {
+        return new HuntSolverState(this.CurrentPosition, this.NextHint);
     }
 }
 
 public record Hint(string SearchedObject, Arrow Direction);
+
+public record HuntSolverState(Coords? CurrentPosition, Hint? NextHint);

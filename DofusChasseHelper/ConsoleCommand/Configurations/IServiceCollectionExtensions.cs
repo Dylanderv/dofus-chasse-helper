@@ -15,13 +15,17 @@ public static class IServiceCollectionExtensions
             .AddSingleton<StartHuntCommand>()
             .AddSingleton<IConsoleCommand, StartHuntCommand>(sp => sp.GetRequiredService<StartHuntCommand>())
             .AddSingleton<NextPositionCommand>()
+            .AddSingleton<NextPositionAlternativeCommand>()
             .AddSingleton<IConsoleCommand, NextPositionCommand>(sp => sp.GetRequiredService<NextPositionCommand>())
+            .AddSingleton<UpdatePosWithCurrentCharPosCommand>()
+            .AddSingleton<IConsoleCommand, UpdatePosWithCurrentCharPosCommand>(sp => sp.GetRequiredService<UpdatePosWithCurrentCharPosCommand>())
             .AddSingleton<ExitCommand>()
             .AddSingleton<IConsoleCommand, ExitCommand>(sp => sp.GetRequiredService<ExitCommand>())
             .AddSingleton<InitBrowserCommand>()
             .AddSingleton<IConsoleCommand, InitBrowserCommand>(sp => sp.GetRequiredService<InitBrowserCommand>());
 
         serviceCollection.AddSingleton<IConsoleLogger, ConsoleLogger>();
+        serviceCollection.AddSingleton<ConsoleDisplay>();
         
         return serviceCollection;
     }

@@ -8,6 +8,7 @@ public static class IServiceCollectionExtensions
     {
         serviceCollection
             .AddSingleton<StartHuntAction>()
+            .AddSingleton<UpdateCurrentPostWithCurrentCharPos>()
             .AddSingleton<GetNextPositionAction>();
 
         return serviceCollection;

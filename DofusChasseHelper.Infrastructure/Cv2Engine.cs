@@ -2,6 +2,7 @@ using System.Drawing;
 using DofusChasseHelper.Domain;
 using OpenCvSharp;
 using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace DofusChasseHelper.Infrastructure;
 
@@ -15,7 +16,23 @@ public class Cv2Engine
         (Arrow.Right, "arrow-right")
     ];
 
-    private string BuildTemplatePath(string templateName) => @$"C:\temp\templates\{templateName}.png";
+    private string BuildTemplatePath(string templateName) => @$".\templates\{templateName}.png";
+    
+    public Task<ChestMatch> GetChestMatch(string path)
+    {
+        using var img1 = new Mat(path);
+
+        var templateMatches = new List<ArrowResult>();
+
+        var templatePath = BuildTemplatePath("pos-chest");
+        
+        using var template = new Mat(templatePath);
+        using var match = new Mat();
+        Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
+        match.MinMaxLoc(out _, out var maxVal, out _, out var maxLoc);
+        
+        return Task.FromResult(new ChestMatch(new Point(maxLoc.X, maxLoc.Y)));
+    }
     
     public ArrowResult? MatchArrow(string path)
     {
@@ -37,3 +54,5 @@ public class Cv2Engine
         return mostProbableMatch;
     }
 }
+
+public record ChestMatch(Point Point);
