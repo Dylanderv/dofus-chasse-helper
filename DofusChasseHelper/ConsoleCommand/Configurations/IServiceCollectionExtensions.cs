@@ -16,6 +16,7 @@ public static class IServiceCollectionExtensions
             .AddSingleton<IConsoleCommand, StartHuntCommand>(sp => sp.GetRequiredService<StartHuntCommand>())
             .AddSingleton<NextPositionCommand>()
             .AddSingleton<NextPositionAlternativeCommand>()
+            .AddSingleton<NextPositionFromClipboardCommand>()
             .AddSingleton<IConsoleCommand, NextPositionCommand>(sp => sp.GetRequiredService<NextPositionCommand>())
             .AddSingleton<UpdatePosWithCurrentCharPosCommand>()
             .AddSingleton<IConsoleCommand, UpdatePosWithCurrentCharPosCommand>(sp => sp.GetRequiredService<UpdatePosWithCurrentCharPosCommand>())

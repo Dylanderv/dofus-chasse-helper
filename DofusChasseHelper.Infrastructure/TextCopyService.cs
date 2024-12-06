@@ -9,4 +9,9 @@ public class TextCopyService : IClipboardService
     {
         await ClipboardService.SetTextAsync(text);
     }
+
+    public async Task<string?> GetFromClipboard()
+    {
+        return await ClipboardService.GetTextAsync();
+    }
 }

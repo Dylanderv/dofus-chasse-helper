@@ -60,6 +60,9 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
         case "/travel":
             await consoleCommandDispatcher.Dispatch<NextPositionAlternativeCommand>(commandArgs);
             break;
+        case "next-from-clipboard":
+            await consoleCommandDispatcher.Dispatch<NextPositionFromClipboardCommand>(commandArgs);
+            break;
         case "update":
             await consoleCommandDispatcher.Dispatch<UpdatePosWithCurrentCharPosCommand>(commandArgs);
             break;

@@ -30,6 +30,11 @@ public class HotkeyHandler : IDisposable
                 AnsiConsole.MarkupLine($"Running Start command");
                 _ = consoleCommandDispatcher.Dispatch<UpdatePosWithCurrentCharPosCommand>([]).Result;
             }
+            if (hotKey.Key == VirtualKeyCode.KEY_R)
+            {
+                AnsiConsole.MarkupLine($"Running Next From Clipboard command");
+                _ = consoleCommandDispatcher.Dispatch<NextPositionFromClipboardCommand>([]).Result;
+            }
         }
 
         this.HotKeyManager = new HotKeyManager();
@@ -37,6 +42,7 @@ public class HotkeyHandler : IDisposable
         this.HotKeyManager.Register(VirtualKeyCode.KEY_Q, Modifiers.Control | Modifiers.Alt);
         this.HotKeyManager.Register(VirtualKeyCode.KEY_A, Modifiers.Control | Modifiers.Alt);
         this.HotKeyManager.Register(VirtualKeyCode.KEY_Z, Modifiers.Control | Modifiers.Alt);
+        this.HotKeyManager.Register(VirtualKeyCode.KEY_R, Modifiers.Control | Modifiers.Alt);
         
         ShowHotkeys();
     }
@@ -47,6 +53,7 @@ public class HotkeyHandler : IDisposable
         AnsiConsole.MarkupLine("[underline]CTRL + ALT + A[/]: Run the [green]Start[/] command");
         AnsiConsole.MarkupLine("[underline]CTRL + ALT + Q[/]: Run the [green]Next[/] command");
         AnsiConsole.MarkupLine("[underline]CTRL + ALT + Z[/]: Run the [green]Update[/] command");
+        AnsiConsole.MarkupLine("[underline]CTRL + ALT + R[/]: Run the [green]Next From Clipboard[/] command");
     }
 
     public void Dispose()
