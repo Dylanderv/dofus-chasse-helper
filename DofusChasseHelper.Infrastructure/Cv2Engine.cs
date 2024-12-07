@@ -17,6 +17,7 @@ public class Cv2Engine
     ];
 
     private string BuildTemplatePath(string templateName) => @$".\templates\{templateName}.png";
+    private string Build1080pTemplatePath(string templateName) => @$".\templates\1080p-{templateName}.png";
     
     public Task<ChestMatch> GetChestMatch(string path)
     {
@@ -42,9 +43,17 @@ public class Cv2Engine
 
         foreach ((var arrow, var name) in ArrowTemplates)
         {
-            using var template = new Mat(BuildTemplatePath(name));
             using var match = new Mat();
-            Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
+            try
+            {
+                using var template = new Mat(BuildTemplatePath(name));
+                Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
+            }
+            catch (OpenCVException e)
+            {
+                using var smallTemplate = new Mat(Build1080pTemplatePath(name));
+                Cv2.MatchTemplate(img1, smallTemplate, match, TemplateMatchModes.CCoeffNormed);
+            }
             match.MinMaxLoc(out _, out var maxVal, out _, out var maxLoc);
             templateMatches.Add(new ArrowResult(arrow, maxVal, new Point(maxLoc.X, maxLoc.Y)));
         }

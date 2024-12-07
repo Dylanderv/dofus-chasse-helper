@@ -72,6 +72,18 @@
         <None Update="tessdata\osd.traineddata">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="templates\1080p-arrow-up.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\1080p-arrow-right.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\1080p-arrow-left.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="templates\1080p-arrow-down.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
