@@ -49,21 +49,26 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
     switch (command)
     {
         case "help":
+        case "h":
             await consoleCommandDispatcher.Dispatch<HelpCommand>(commandArgs);
             break;
         case "start":
+        case "a":
             await consoleCommandDispatcher.Dispatch<StartHuntCommand>(commandArgs);
             break;
         case "next":
+        case "q":
             await consoleCommandDispatcher.Dispatch<NextPositionCommand>(commandArgs);
             break;
         case "/travel":
             await consoleCommandDispatcher.Dispatch<NextPositionAlternativeCommand>(commandArgs);
             break;
         case "next-from-clipboard":
+        case "r":
             await consoleCommandDispatcher.Dispatch<NextPositionFromClipboardCommand>(commandArgs);
             break;
         case "update":
+        case "z":
             await consoleCommandDispatcher.Dispatch<UpdatePosWithCurrentCharPosCommand>(commandArgs);
             break;
         case "exit":
