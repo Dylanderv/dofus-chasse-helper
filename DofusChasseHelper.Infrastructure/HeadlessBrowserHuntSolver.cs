@@ -153,10 +153,10 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
         var result = await this._page.QuerySelectorAsync(ResultDivSelector);
         var contentAsync = await result.ToDomHandle<HtmlDivElement>().GetTextContentAsync();
 
-        await this._page.ScreenshotAsync(@"C:\temp\browser.png", new ScreenshotOptions()
-        {
-            Type = ScreenshotType.Png
-        });
+        // await this._page.ScreenshotAsync(@"C:\temp\browser.png", new ScreenshotOptions()
+        // {
+        //     Type = ScreenshotType.Png
+        // });
 
         string[] strings = contentAsync.Split('[').Last().Split(']').First().Split(',');
 
@@ -265,10 +265,10 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
 
         await page.WaitForNetworkIdleAsync();
 
-        await page.ScreenshotAsync(@"C:\temp\browser.png", new ScreenshotOptions()
-        {
-            Type = ScreenshotType.Png
-        });
+        // await page.ScreenshotAsync(@"C:\temp\browser.png", new ScreenshotOptions()
+        // {
+        //     Type = ScreenshotType.Png
+        // });
 
         throw new NotImplementedException();
     }
