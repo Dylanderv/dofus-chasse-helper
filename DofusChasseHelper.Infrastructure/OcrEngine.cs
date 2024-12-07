@@ -31,7 +31,7 @@ public class OcrEngine : IOcrEngine
     private static readonly string[] CurrentImagePathParts = ["process-action-current.png"];
     
     private static readonly TextTemplate HeaderTextTemplate = new("header" ,["CHASSE AUX TRÉSOR"]);
-    private static readonly TextTemplate FooterTextTemplate = new("footer" ,["essais restants"]);
+    private static readonly TextTemplate FooterTextTemplate = new("footer" ,["essais restants", "essai restant"]);
     private static readonly TextTemplate CurrentTextTemplate = new("current" ,["encours", "en cours"], TemplateSearchOptions.FindLast);
     private static readonly TextTemplate StartTextTemplate = new("start" ,["départ"]);
 
