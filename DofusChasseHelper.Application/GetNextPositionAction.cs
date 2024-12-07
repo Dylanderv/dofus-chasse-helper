@@ -10,6 +10,7 @@ public class GetNextPositionAction
     private readonly IScreenshotProvider _screenshotProvider;
     private readonly IHeadlessBrowserHuntSolver _headlessBrowserHuntSolver;
     private readonly IClipboardService _clipboardService;
+    private readonly IConfigurationProvider _configurationProvider;
     private readonly IConsoleLogger _consoleLogger;
 
     public GetNextPositionAction(
@@ -18,6 +19,7 @@ public class GetNextPositionAction
         IScreenshotProvider screenshotProvider,
         IHeadlessBrowserHuntSolver headlessBrowserHuntSolver,
         IClipboardService clipboardService,
+        IConfigurationProvider configurationProvider,
         IConsoleLogger consoleLogger)
     {
         _huntSolver = huntSolver;
@@ -25,6 +27,7 @@ public class GetNextPositionAction
         _screenshotProvider = screenshotProvider;
         _headlessBrowserHuntSolver = headlessBrowserHuntSolver;
         _clipboardService = clipboardService;
+        _configurationProvider = configurationProvider;
         _consoleLogger = consoleLogger;
     }
     
@@ -35,7 +38,7 @@ public class GetNextPositionAction
             this._huntSolver.ForceCurrentPosition(forcedCurrentPosition, this._consoleLogger);
         }
         
-        await this._huntSolver.GetNextHint(this._screenshotProvider, this._ocrEngine, this._consoleLogger);
+        await this._huntSolver.GetNextHint(this._screenshotProvider, this._ocrEngine, this._consoleLogger, this._configurationProvider);
         await this._huntSolver.GetNextPosition(this._headlessBrowserHuntSolver, this._clipboardService, this._consoleLogger);
     }
 }

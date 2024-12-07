@@ -10,9 +10,11 @@ public class HuntSolver
     private Coords? CurrentPosition { get; set; }
     private Hint? NextHint { get; set; }
 
-    public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger)
+    public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
     {
-        var screenShot = screenshotProvider.ScreenShot();
+        var characterName = configurationProvider.GetCharacterName();
+        var screenShot = screenshotProvider.PrintWindow(characterName);
+        // var screenShot = screenshotProvider.ScreenShot();
 
         (Coords startPosition, Hint firstHint) = await ocrEngine.GetFirstHint(screenShot);
 
@@ -25,12 +27,14 @@ public class HuntSolver
         consoleLogger.LogInfo($"Direction: {Enum.GetName(firstHint.Direction)}");
     }
 
-    public async Task GetNextHint(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger)
+    public async Task GetNextHint(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
     {
         if (this.CurrentPosition is null)
             throw new MissingRequiredStateException(nameof(this.CurrentPosition));
-        
-        var screenShot = screenshotProvider.ScreenShot();
+
+        var characterName = configurationProvider.GetCharacterName();
+        var screenShot = screenshotProvider.PrintWindow(characterName);
+        // var screenShot = screenshotProvider.ScreenShot();
 
         this.NextHint = await ocrEngine.GetNextHint(screenShot);
         
@@ -79,9 +83,11 @@ public class HuntSolver
         consoleLogger.LogInfo($"Hunt current position forced at: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
     }
 
-    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver)
+    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver, IConfigurationProvider configurationProvider)
     {
-        var screenShot = screenshotProvider.ScreenShot();
+        var characterName = configurationProvider.GetCharacterName();
+        var screenShot = screenshotProvider.PrintWindow(characterName);
+        // var screenShot = screenshotProvider.ScreenShot();
 
         var currentPos = await ocrEngine.GetCurrentPos(screenShot);
 

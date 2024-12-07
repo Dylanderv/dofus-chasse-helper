@@ -7,6 +7,8 @@ To make the most out of it, I recommend you to set the interface size in the acc
 
 And also, it will only work with the game language in french, since it's looking for french text on the screen to determine where are the elements. It's not ideal but that was pretty easy and quick to do.
 
+Edit DofusChasseHelper.Infrastructure/configuration.json with your character name.
+
 ## Todo list
 
 - Add an option file to edit the shortcuts

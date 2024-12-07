@@ -1,3 +1,4 @@
+using DofusChasseHelper.Domain;
 using DofusChasseHelper.Domain.External;
 using DofusChasseHelper.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class IServiceCollectionExtensions
         serviceCollection.AddSingleton<IHeadlessBrowserSetup>(sp => sp.GetRequiredService<HeadlessBrowserHuntSolver>());
         serviceCollection.AddSingleton<IHeadlessBrowserHuntSolver>(sp => sp.GetRequiredService<HeadlessBrowserHuntSolver>());
         
+        serviceCollection.AddSingleton<IConfigurationProvider, ConfigurationProvider>();
         serviceCollection.AddSingleton<IDofusTextProvider, DofusTextProvider>();
         serviceCollection.AddSingleton<IApi, Api>();
         serviceCollection.AddSingleton<IOcrEngine, OcrEngine>();
