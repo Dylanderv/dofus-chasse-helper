@@ -31,6 +31,11 @@ public class Cv2Engine
         using var match = new Mat();
         Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
         match.MinMaxLoc(out _, out var maxVal, out _, out var maxLoc);
+
+        if (maxVal < 0.6)
+        {
+            throw new Exception("Unable to match confidently the chest");
+        }
         
         return Task.FromResult(new ChestMatch(new Point(maxLoc.X, maxLoc.Y)));
     }

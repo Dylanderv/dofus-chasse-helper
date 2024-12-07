@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using DofusChasseHelper.Domain;
 using DofusChasseHelper.Domain.External;
 using DofusChasseHelper.Infrastructure.Exceptions;
@@ -23,6 +24,7 @@ public class OcrEngine : IOcrEngine
     private static readonly string[] HeaderDebugDirectoryPathParts = ["debug", "header"];
     private static readonly string[] FooterDebugDirectoryPathParts = ["debug", "footer"];
     private static readonly string[] BoxDetailsDebugDirectoryPathParts = ["debug", "boxDetails"];
+    private static readonly string[] CurrentPositionDebugDirectoryPathParts = ["debug", "currentPosition"];
 
     private static readonly string[] AproxBoxImagePathParts = ["roughbox.png"];
     private static readonly string[] CurrentPosFullImagePathParts = ["currPosFull.png"];
@@ -34,6 +36,7 @@ public class OcrEngine : IOcrEngine
     private static readonly TextTemplate FooterTextTemplate = new("footer" ,["essais restants", "essai restant"]);
     private static readonly TextTemplate CurrentTextTemplate = new("current" ,["encours", "en cours"], TemplateSearchOptions.FindLast);
     private static readonly TextTemplate StartTextTemplate = new("start" ,["départ"]);
+    private static readonly TextTemplate CurrentPositionTextTemplate = new("currentPosition" ,["- Niveau"]);
 
     public OcrEngine(Cv2Engine cv2Engine)
     {
@@ -42,6 +45,7 @@ public class OcrEngine : IOcrEngine
         Directory.CreateDirectory(BuildPath(HeaderDebugDirectoryPathParts));
         Directory.CreateDirectory(BuildPath(FooterDebugDirectoryPathParts));
         Directory.CreateDirectory(BuildPath(BoxDetailsDebugDirectoryPathParts));
+        Directory.CreateDirectory(BuildPath(CurrentPositionDebugDirectoryPathParts));
     }
 
     private TesseractEngine GetEngine()
@@ -66,10 +70,36 @@ public class OcrEngine : IOcrEngine
     {
         var sourceImagePath = BuildPath(CurrentPosFullImagePathParts);
         sourceImage.Save(sourceImagePath);
+        Rectangle rectangle;
+        try
+        {
+            ChestMatch chestMatch = await this._cv2Engine.GetChestMatch(sourceImagePath);
+            rectangle = new Rectangle(chestMatch.Point with { X = Math.Max(chestMatch.Point.X - 250, 0) }, new Size(chestMatch.Point.X, 25));
+        }
+        catch (Exception)
+        {
+            using var engine = this.GetEngine();
 
-        var chestMatch = await this._cv2Engine.GetChestMatch(sourceImagePath);
+            const PageSegMode pageSegMode = PageSegMode.SingleColumn;
+            const PageIteratorLevel pageIteratorLevel = PageIteratorLevel.TextLine;
+            
+            Match? currentPositionMatch = FindMatchWithMatchingText(
+                engine,
+                sourceImage,
+                CurrentPositionTextTemplate,
+                CurrentPositionDebugDirectoryPathParts,
+                pageSegMode, 
+                pageIteratorLevel
+            );
+
+            if (currentPositionMatch is null)
+            {
+                throw new Exception("Unable to find current position");
+            }
+
+            rectangle = currentPositionMatch.Rectangle;
+        }
         
-        var rectangle = new Rectangle(chestMatch.Point with { X = Math.Max(chestMatch.Point.X - 250, 0) }, new Size(chestMatch.Point.X, 25));
 
         var subImage = SaveSubImage(sourceImage, rectangle, CurrentPosImagePathParts);
 
@@ -78,14 +108,37 @@ public class OcrEngine : IOcrEngine
 
         var text = process.GetText();
 
-        IReadOnlyCollection<string> enumerable = text.Split(' ').Take(2).ToList();
+        var regex = new Regex(@"(-?\d*), ?(-?\d*)");
+
+        var groups = regex.Match(text).Groups;
+
+        if (groups.Count != 3)
+        {
+            throw new Exception("Unable to parse current position");
+        }
+        // groups[0] is the whole match (i.e. for "-1, 3 - Niveau 10", groups[0] will be "-1, 3", groups[1] "-1", groups[2] "3")
+        var coords = new Coords(int.Parse(groups[1].Value), int.Parse(groups[2].Value));
+
+        //
+        // IReadOnlyCollection<string> enumerable = text.Split(' ').Take(2).ToList();
+        //
+        // if (enumerable.First().Contains(','))
+        // {
+        //     enumerable = enumerable.First().Split(',');
+        //     if (enumerable.Count > 2)
+        //     {
+        //         throw new Exception("Unable to parse current position");
+        //     }
+        // }
+        // var coords = new Coords(int.Parse(enumerable.First().Trim().TrimEnd(',')), int.Parse(enumerable.Last().Trim().TrimEnd('-').Trim()));
+
+        
         //
         //
         // var skipLast = text.Split("Niveau").First().Split('-').SkipLast(1);
         // var join = string.Join('-', skipLast);
         // var strings = join.Split(',');
 
-        var coords = new Coords(int.Parse(enumerable.First().Trim().TrimEnd(',')), int.Parse(enumerable.Last().Trim()));
 
         return coords;
     }
