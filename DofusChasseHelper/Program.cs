@@ -1,5 +1,6 @@
 ﻿using dofus_chasse_helper;
 using dofus_chasse_helper.ConsoleCommand;
+using dofus_chasse_helper.ConsoleCommand.Abstractions;
 using dofus_chasse_helper.ConsoleCommand.Configurations;
 using dofus_chasse_helper.ConsoleCommand.Infrastructure;
 using DofusChasseHelper.Application.Configurations;
@@ -74,9 +75,53 @@ while (response.Equals("exit", StringComparison.OrdinalIgnoreCase) is false)
         case "exit":
             await consoleCommandDispatcher.Dispatch<ExitCommand>(commandArgs);
             break;
+        case "short-mode":
+            await ShortMode(consoleCommandDispatcher);
+            break;
         default:
             AnsiConsole.MarkupLine("Invalid command");
             await consoleCommandDispatcher.Dispatch<HelpCommand>(commandArgs);
             break;
     }
+
+    static async Task RunCommandWithoutException<TCommand>(ConsoleCommandDispatcher consoleCommandDispatcher)
+        where TCommand : IConsoleCommand
+    {
+        try
+        {
+            await consoleCommandDispatcher.Dispatch<TCommand>([]);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+    
+static async Task ShortMode(ConsoleCommandDispatcher consoleCommandDispatcher)
+{
+    char lastKey = ' ';
+    do
+    {
+        var consoleKeyInfo = Console.ReadKey();
+        lastKey = consoleKeyInfo.KeyChar;
+        switch (lastKey)
+        {
+            case 'h':
+                await RunCommandWithoutException<HelpCommand>(consoleCommandDispatcher);
+                break;
+            case 'a':
+                await RunCommandWithoutException<StartHuntCommand>(consoleCommandDispatcher);
+                break;
+            case 'q':
+                await RunCommandWithoutException<NextPositionCommand>(consoleCommandDispatcher);
+                break;
+            case 'r':
+                await RunCommandWithoutException<NextPositionFromClipboardCommand>(consoleCommandDispatcher);
+                break;
+            case 'z':
+                await RunCommandWithoutException<UpdatePosWithCurrentCharPosCommand>(consoleCommandDispatcher);
+                break;
+        }
+    } while (lastKey != 'x');
+}
 }
