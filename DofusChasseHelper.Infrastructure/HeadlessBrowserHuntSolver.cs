@@ -103,7 +103,7 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
     }
     
     
-    public async Task<Coords> DofusPourLesNoobs(Coords position, Arrow direction, string searchedObject)
+    public async Task<Coords> SolveWithDofusPourLesNoobs(Coords position, Arrow direction, string searchedObject)
     {
         if ((await this.IsBrowserRunning()) is false)
         {
@@ -111,31 +111,10 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
         }
         
         // await this.Page.WaitForNetworkIdleAsync();
-        
-        var xInput = await this._page!.QuerySelectorAsync(XInputSelector);
-        var yInput = await this._page.QuerySelectorAsync(YInputSelector);
-        
-        await xInput.ClickAsync();
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.PressAsync(Key.Backspace);
-        await xInput.TypeAsync(position.X.ToString());
-        
-        await yInput.ClickAsync();
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.PressAsync(Key.Backspace);
-        await yInput.TypeAsync(position.Y.ToString());
 
-        var arrow = await this._page.QuerySelectorAsync(_arrowsSelector.Invoke(direction));
+        await this.UpdatePosForDofusPourLesNoobs(position);
+
+        var arrow = await this._page!.QuerySelectorAsync(_arrowsSelector.Invoke(direction));
         await arrow.ClickAsync();
         
         var selectClue = await this._page.QuerySelectorAsync(CluesSelector);
@@ -184,6 +163,32 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
         object clipboardContent = await this._page.EvaluateExpressionAsync<object>("() => navigator.clipboard.readText()");
         
         return new Coords(int.Parse(strings[0]), int.Parse(strings[1]));
+    }
+
+    public async Task UpdatePosForDofusPourLesNoobs(Coords position)
+    {
+        var xInput = await this._page!.QuerySelectorAsync(XInputSelector);
+        var yInput = await this._page.QuerySelectorAsync(YInputSelector);
+        
+        await xInput.ClickAsync();
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.PressAsync(Key.Backspace);
+        await xInput.TypeAsync(position.X.ToString());
+        
+        await yInput.ClickAsync();
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.PressAsync(Key.Backspace);
+        await yInput.TypeAsync(position.Y.ToString());
     }
 
     private async Task AcceptCookies(string cookiesButtonSelector)

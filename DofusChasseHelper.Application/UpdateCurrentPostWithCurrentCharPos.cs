@@ -30,6 +30,6 @@ public class UpdateCurrentPostWithCurrentCharPos
 
     public async Task Run()
     {
-        await this._huntSolver.SetCurrentPositionWithCurrentCharPosition(this._screenshotProvider, this._ocrEngine, this._consoleLogger);
+        await this._huntSolver.SetCurrentPositionWithCurrentCharPosition(this._screenshotProvider, this._ocrEngine, this._consoleLogger, this._headlessBrowserHuntSolver);
     }
 }

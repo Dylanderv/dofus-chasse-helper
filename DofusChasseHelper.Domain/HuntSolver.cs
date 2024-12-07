@@ -52,7 +52,7 @@ public class HuntSolver
         
         try
         {
-            destination = await headlessBrowserHuntSolver.DofusPourLesNoobs(this.CurrentPosition,
+            destination = await headlessBrowserHuntSolver.SolveWithDofusPourLesNoobs(this.CurrentPosition,
                 this.NextHint.Direction, this.NextHint.SearchedObject);
         }
         catch (Exception e)
@@ -79,13 +79,15 @@ public class HuntSolver
         consoleLogger.LogInfo($"Hunt current position forced at: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
     }
 
-    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger)
+    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver)
     {
         var screenShot = screenshotProvider.ScreenShot();
 
         var currentPos = await ocrEngine.GetCurrentPos(screenShot);
 
         this.UpdatePosition(currentPos, consoleLogger);
+
+        await headlessBrowserHuntSolver.UpdatePosForDofusPourLesNoobs(currentPos);
         
         consoleLogger.LogInfo($"New position: {currentPos.X},{currentPos.Y}");
     }
