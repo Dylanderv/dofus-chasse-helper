@@ -7,6 +7,8 @@ namespace DofusChasseHelper.Infrastructure;
 
 public class ScreenshotProvider : IScreenshotProvider
 {
+    
+    
     public Bitmap ScreenShot()
     {
         var screen = Screen.PrimaryScreen;
@@ -21,7 +23,7 @@ public class ScreenshotProvider : IScreenshotProvider
         using (var g = Graphics.FromImage(target))
         {
             g.CopyFromScreen(0, 0, 0, 0, new Size(screenSize.Width, screenSize.Height));
-            target.Save($"C:\\temp\\{deviceName}.png", ImageFormat.Png);
+            // target.Save($".\\base\\{deviceName}.png", ImageFormat.Png);
         }
 
         return target;
