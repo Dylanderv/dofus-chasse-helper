@@ -9,7 +9,5 @@ And also, it will only work with the game language in french, since it's looking
 
 ## Todo list
 
-- Fix the issue where some folders needs to be created in C:\
-- Share all arrow templates, otherwise the app will not work
 - Add an option file to edit the shortcuts
 - Improve the detection
