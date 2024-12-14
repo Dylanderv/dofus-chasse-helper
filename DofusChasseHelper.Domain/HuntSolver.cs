@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using DofusChasseHelper.Domain.Exceptions;
@@ -10,11 +11,20 @@ public class HuntSolver
     private Coords? CurrentPosition { get; set; }
     private Hint? NextHint { get; set; }
 
+    private Bitmap Screenshot(IScreenshotProvider screenshotProvider, IConfigurationProvider configurationProvider)
+    {
+        if (configurationProvider.GetCharacterScopedScreenshotSetting())
+        {
+            var characterName = configurationProvider.GetCharacterName();
+            return screenshotProvider.PrintWindow(characterName);
+        }
+        return screenshotProvider.ScreenShot();
+
+    }
+    
     public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
     {
-        var characterName = configurationProvider.GetCharacterName();
-        var screenShot = screenshotProvider.PrintWindow(characterName);
-        // var screenShot = screenshotProvider.ScreenShot();
+        var screenShot = this.Screenshot(screenshotProvider, configurationProvider);
 
         (Coords startPosition, Hint firstHint) = await ocrEngine.GetFirstHint(screenShot);
 
@@ -32,9 +42,8 @@ public class HuntSolver
         if (this.CurrentPosition is null)
             throw new MissingRequiredStateException(nameof(this.CurrentPosition));
 
-        var characterName = configurationProvider.GetCharacterName();
-        var screenShot = screenshotProvider.PrintWindow(characterName);
-        // var screenShot = screenshotProvider.ScreenShot();
+        var screenShot = this.Screenshot(screenshotProvider, configurationProvider);
+
 
         this.NextHint = await ocrEngine.GetNextHint(screenShot);
         
@@ -85,10 +94,8 @@ public class HuntSolver
 
     public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver, IConfigurationProvider configurationProvider)
     {
-        var characterName = configurationProvider.GetCharacterName();
-        var screenShot = screenshotProvider.PrintWindow(characterName);
-        // var screenShot = screenshotProvider.ScreenShot();
-
+        var screenShot = this.Screenshot(screenshotProvider, configurationProvider);
+        
         var currentPos = await ocrEngine.GetCurrentPos(screenShot);
 
         this.UpdatePosition(currentPos, consoleLogger);

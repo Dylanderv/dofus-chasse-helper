@@ -2,6 +2,8 @@ using DofusChasseHelper.Domain;
 using DofusChasseHelper.Domain.External;
 using DofusChasseHelper.Infrastructure.Exceptions;
 using DofusChasseHelper.Infrastructure.Interfaces;
+using PuppeteerExtraSharp;
+using PuppeteerExtraSharp.Plugins.ExtraStealth;
 using PuppeteerSharp;
 using PuppeteerSharp.Dom;
 using PuppeteerSharp.Input;
@@ -39,7 +41,10 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
 
     public async Task StartBrowser()
     {
-        this._browser = await Puppeteer.LaunchAsync(new LaunchOptions()
+        var extra = new PuppeteerExtra();
+        var stealthPlugin = new StealthPlugin();
+
+        this._browser = await extra.Use(stealthPlugin).LaunchAsync(new LaunchOptions()
         {
             Headless = false,
             Args = [
@@ -62,20 +67,21 @@ public class HeadlessBrowserHuntSolver : IHeadlessBrowserHuntSolver, IHeadlessBr
         string[] authorizedRequests =
         [
             url,
-            "cdn2.editmysite.com"
+            "cdn2.editmysite.com",
+            "challenges.cloudflare.com"
         ];
         
-        this._page.AddRequestInterceptor(req =>
-        {
-            if (authorizedRequests.Any(x => x.Contains(req.Url.Split("://").Last().Split('/').First())))
-            {
-                return req.ContinueAsync();
-            }
-
-            return req.AbortAsync();
-        });
-        
-        await this._page.SetRequestInterceptionAsync(true);
+        // this._page. .AddRequestInterceptor(req =>
+        // {
+        //     if (authorizedRequests.Any(x => x.Contains(req.Url.Split("://").Last().Split('/').First())))
+        //     {
+        //         return req.ContinueAsync();
+        //     }
+        //
+        //     return req.AbortAsync();
+        // });
+        //
+        // await this._page.SetRequestInterceptionAsync(true);
         
         await this._page.GoToAsync(url);
         
