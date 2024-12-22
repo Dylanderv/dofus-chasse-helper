@@ -1,4 +1,16 @@
 {
   "characterName": "Xoad",
-  "characterScopedScreenshot": false
+  "characterScopedScreenshot": false,
+  "shouldUseFullscreenScreenshot": false,
+  "huntBoxApproximation": {
+    "width":  300,
+    "height": 350
+  },
+  "browserHuntSolver": "DofusPourLesNoobs",
+
+
+  "DEFAULThuntBoxApproximation": {
+    "width":  300,
+    "height": 350
+  }
 }

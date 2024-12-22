@@ -13,16 +13,22 @@ public class HuntSolver
 
     private Bitmap Screenshot(IScreenshotProvider screenshotProvider, IConfigurationProvider configurationProvider)
     {
+        string characterName = configurationProvider.GetCharacterName();
         if (configurationProvider.GetCharacterScopedScreenshotSetting())
         {
-            var characterName = configurationProvider.GetCharacterName();
             return screenshotProvider.PrintWindow(characterName);
         }
-        return screenshotProvider.ScreenShot();
 
+        if (configurationProvider.ShouldUseFullscreenScreenshot())
+        {
+            return screenshotProvider.ScreenShot();
+        }
+
+        return screenshotProvider.ScreenShotUsingSizeFromOneCharacter(characterName);
     }
-    
-    public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
+
+    public async Task Initialize(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine,
+        IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
     {
         var screenShot = this.Screenshot(screenshotProvider, configurationProvider);
 
@@ -31,13 +37,14 @@ public class HuntSolver
         this.UpdatePosition(startPosition, consoleLogger);
 
         this.NextHint = firstHint;
-        
+
         consoleLogger.LogInfo($"Hunt start position: {startPosition.X},{startPosition.Y}");
         consoleLogger.LogInfo($"First hint: {firstHint.SearchedObject}");
         consoleLogger.LogInfo($"Direction: {Enum.GetName(firstHint.Direction)}");
     }
 
-    public async Task GetNextHint(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
+    public async Task GetNextHint(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine,
+        IConsoleLogger consoleLogger, IConfigurationProvider configurationProvider)
     {
         if (this.CurrentPosition is null)
             throw new MissingRequiredStateException(nameof(this.CurrentPosition));
@@ -46,13 +53,14 @@ public class HuntSolver
 
 
         this.NextHint = await ocrEngine.GetNextHint(screenShot);
-        
+
         consoleLogger.LogInfo($"Hunt current position: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
         consoleLogger.LogInfo($"Next hint: {this.NextHint.SearchedObject}");
         consoleLogger.LogInfo($"Direction: {Enum.GetName(this.NextHint.Direction)}");
     }
 
-    public async Task GetNextPosition(IHeadlessBrowserHuntSolver headlessBrowserHuntSolver, IClipboardService clipboardService, IConsoleLogger consoleLogger)
+    public async Task GetNextPosition(IHeadlessBrowserHuntSolver headlessBrowserHuntSolver,
+        IClipboardService clipboardService, IConsoleLogger consoleLogger)
     {
         if (this.NextHint is null || this.CurrentPosition is null)
         {
@@ -62,7 +70,7 @@ public class HuntSolver
         }
 
         Coords destination;
-        
+
         try
         {
             destination = await headlessBrowserHuntSolver.SolveWithDofusPourLesNoobs(this.CurrentPosition,
@@ -79,7 +87,7 @@ public class HuntSolver
 
         this.UpdatePosition(destination, consoleLogger);
 
-        
+
         consoleLogger.LogInfo($"Found hint position: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
     }
 
@@ -92,16 +100,18 @@ public class HuntSolver
         consoleLogger.LogInfo($"Hunt current position forced at: {this.CurrentPosition.X},{this.CurrentPosition.Y}");
     }
 
-    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider, IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver, IConfigurationProvider configurationProvider)
+    public async Task SetCurrentPositionWithCurrentCharPosition(IScreenshotProvider screenshotProvider,
+        IOcrEngine ocrEngine, IConsoleLogger consoleLogger, IHeadlessBrowserHuntSolver headlessBrowserHuntSolver,
+        IConfigurationProvider configurationProvider)
     {
         var screenShot = this.Screenshot(screenshotProvider, configurationProvider);
-        
+
         var currentPos = await ocrEngine.GetCurrentPos(screenShot);
 
         this.UpdatePosition(currentPos, consoleLogger);
 
         await headlessBrowserHuntSolver.UpdatePosForDofusPourLesNoobs(currentPos);
-        
+
         consoleLogger.LogInfo($"New position: {currentPos.X},{currentPos.Y}");
     }
 

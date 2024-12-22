@@ -23,18 +23,31 @@ public class Cv2Engine
     {
         using var img1 = new Mat(path);
 
-        var templateMatches = new List<ArrowResult>();
-
+        double maxVal;
+        OpenCvSharp.Point maxLoc;
+        Mat template;
+        Mat match;
+        
         var templatePath = BuildTemplatePath("pos-chest");
         
-        using var template = new Mat(templatePath);
-        using var match = new Mat();
+        template = new Mat(templatePath);
+        match = new Mat();
         Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
-        match.MinMaxLoc(out _, out var maxVal, out _, out var maxLoc);
+        match.MinMaxLoc(out _, out maxVal, out _, out maxLoc);
 
         if (maxVal < 0.6)
         {
-            throw new Exception("Unable to match confidently the chest");
+            
+            // var highResTemplatePath = BuildTemplatePath("4k-chest");
+            // template = new Mat(highResTemplatePath);
+            // match = new Mat();
+            // Cv2.MatchTemplate(img1, template, match, TemplateMatchModes.CCoeffNormed);
+            // template.MinMaxLoc(out _, out maxVal, out _, out maxLoc);
+            //
+            // if (maxVal < 0.58)
+            // {
+                throw new Exception("Unable to match confidently the chest");
+            // }
         }
         
         return Task.FromResult(new ChestMatch(new Point(maxLoc.X, maxLoc.Y)));

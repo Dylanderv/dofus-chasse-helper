@@ -15,6 +15,9 @@ namespace DofusChasseHelper.Infrastructure;
 public class OcrEngine : IOcrEngine
 {
     private readonly Cv2Engine _cv2Engine;
+
+    private readonly IConfigurationProvider _configurationProvider;
+
     // private const string TessdataPath = @"C:\tessdata";
     private const string TessdataPath = @".\tessdata";
     // private const string BasePath = @"C:\temp";
@@ -38,9 +41,10 @@ public class OcrEngine : IOcrEngine
     private static readonly TextTemplate StartTextTemplate = new("start" ,["départ"]);
     private static readonly TextTemplate CurrentPositionTextTemplate = new("currentPosition" ,["- Niveau"]);
 
-    public OcrEngine(Cv2Engine cv2Engine)
+    public OcrEngine(Cv2Engine cv2Engine, IConfigurationProvider configurationProvider)
     {
         _cv2Engine = cv2Engine;
+        _configurationProvider = configurationProvider;
         Directory.CreateDirectory(BasePath);
         Directory.CreateDirectory(BuildPath(HeaderDebugDirectoryPathParts));
         Directory.CreateDirectory(BuildPath(FooterDebugDirectoryPathParts));
@@ -426,12 +430,14 @@ public class OcrEngine : IOcrEngine
         }
     }
 
-    private static Rectangle ApproximateHuntBoxFromHeader(Bitmap screenShot, [DisallowNull] Rectangle? header)
+    private Rectangle ApproximateHuntBoxFromHeader(Bitmap screenShot, [DisallowNull] Rectangle? header)
     {
+        var huntBoxApproximationSettings = this._configurationProvider.GetHuntBoxApproximationSettings();
+
         var valueX = Math.Max(header.Value.X - 150, 0);
         var valueY = Math.Max(header.Value.Y - 10, 0);
-        var valueWidth = Math.Min(header.Value.Width + 300, screenShot.Width);
-        var valueHeight = Math.Min(header.Value.Height + 350, screenShot.Height);
+        var valueWidth = Math.Min(header.Value.Width + huntBoxApproximationSettings.Width, screenShot.Width - valueX);
+        var valueHeight = Math.Min(header.Value.Height + huntBoxApproximationSettings.Height, screenShot.Height - valueY);
 
 
         var roughBoxSize = new Rectangle(valueX, valueY, valueWidth, valueHeight);

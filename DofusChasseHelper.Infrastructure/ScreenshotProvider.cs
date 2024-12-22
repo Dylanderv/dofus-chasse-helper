@@ -11,6 +11,8 @@ public class ScreenshotProvider : IScreenshotProvider
 {
     public Bitmap ScreenShot()
     {
+        SetProcessDPIAware();
+
         var screen = Screen.PrimaryScreen;
 
         var deviceName = screen.DeviceName;
@@ -28,6 +30,38 @@ public class ScreenshotProvider : IScreenshotProvider
 
         return target;
     }
+    public Bitmap ScreenShotUsingSizeFromOneCharacter(string characterName)
+    {
+        SetProcessDPIAware();
+        Process proc;
+
+        // Cater for cases when the process can't be located.
+        try
+        {
+            proc = Process
+                .GetProcesses()
+                .Where(x => x.ProcessName.Equals("Dofus", StringComparison.OrdinalIgnoreCase))
+                .Single(x => x.MainWindowTitle.Contains(characterName));
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            return null;
+        }
+        
+        GetWindowRect(proc.MainWindowHandle, out RECT rc);
+        
+        var target = new Bitmap(rc.Width, rc.Height);
+        using (var g = Graphics.FromImage(target))
+        {
+            g.CopyFromScreen(rc.X, rc.Y, 0, 0, new Size(rc.Width, rc.Height));
+            target.Save($".\\base\\debug-fullscreen.png", ImageFormat.Png);
+        }
+
+        return target;
+    }
+    
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    public static extern bool SetProcessDPIAware();
     
     [DllImport("user32.dll")]
     public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
@@ -36,6 +70,8 @@ public class ScreenshotProvider : IScreenshotProvider
 
     public Bitmap PrintWindow(string characterName)    
     {       
+        SetProcessDPIAware();
+
         Process proc;
 
         // Cater for cases when the process can't be located.
