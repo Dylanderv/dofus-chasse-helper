@@ -53,6 +53,19 @@ public class ConfigurationProvider : IConfigurationProvider
 
         return new HuntBoxApproximation(config.HuntBoxApproximation.Witdh, config.HuntBoxApproximation.Height);
     }
+
+    public OcrSettings GetOcrSettings()
+    {
+        var config = ReadConfig();
+
+        return new OcrSettings(
+            HeaderTexts: config.Ocr.HeaderTexts,
+            FooterTexts: config.Ocr.FooterTexts,
+            CurrentTexts: config.Ocr.CurrentTexts,
+            StartTexts: config.Ocr.StartTexts,
+            CurrentPositionTexts: config.Ocr.CurrentPositionTexts
+        );
+    }
 }
 
 public class Config
@@ -71,6 +84,19 @@ public class Config
 
     [JsonPropertyName("browserHuntSolver")]
     public string BrowserHuntSolver { get; set; }
+    
+    [JsonPropertyName("ocr")]
+    public OcrSettingsDto Ocr { get; set; } = new OcrSettingsDto();
+    
+    public class OcrSettingsDto
+    {
+        public string[] HeaderTexts { get; set; } = ["CHASSE AUX TRÉSOR"];
+        public string[] FooterTexts { get; set; } = ["essais restants", "essai restant", "essais restant"];
+        public string[] CurrentTexts { get; set; } = ["encours", "en cours"];
+        public string[] StartTexts { get; set; } = ["départ"];
+        public string[] CurrentPositionTexts { get; set; } = ["- Niveau"];
+    }
+    
     
     public class HuntBoxApproximationDto
     {

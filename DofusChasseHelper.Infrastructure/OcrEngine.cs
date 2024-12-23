@@ -34,12 +34,12 @@ public class OcrEngine : IOcrEngine
     private static readonly string[] CurrentPosImagePathParts = ["currPos.png"];
     private static readonly string[] BoxImagePathParts = ["found.png"];
     private static readonly string[] CurrentImagePathParts = ["process-action-current.png"];
-    
-    private static readonly TextTemplate HeaderTextTemplate = new("header" ,["CHASSE AUX TRÉSOR"]);
-    private static readonly TextTemplate FooterTextTemplate = new("footer" ,["essais restants", "essai restant"]);
-    private static readonly TextTemplate CurrentTextTemplate = new("current" ,["encours", "en cours"], TemplateSearchOptions.FindLast);
-    private static readonly TextTemplate StartTextTemplate = new("start" ,["départ"]);
-    private static readonly TextTemplate CurrentPositionTextTemplate = new("currentPosition" ,["- Niveau"]);
+
+    private readonly TextTemplate _headerTextTemplate;
+    private readonly TextTemplate _footerTextTemplate;
+    private readonly TextTemplate _currentTextTemplate;
+    private readonly TextTemplate _startTextTemplate;
+    private readonly TextTemplate _currentPositionTextTemplate;
 
     public OcrEngine(Cv2Engine cv2Engine, IConfigurationProvider configurationProvider)
     {
@@ -50,6 +50,15 @@ public class OcrEngine : IOcrEngine
         Directory.CreateDirectory(BuildPath(FooterDebugDirectoryPathParts));
         Directory.CreateDirectory(BuildPath(BoxDetailsDebugDirectoryPathParts));
         Directory.CreateDirectory(BuildPath(CurrentPositionDebugDirectoryPathParts));
+
+        var ocrSettings = this._configurationProvider.GetOcrSettings();
+
+        this._headerTextTemplate = new TextTemplate("header", ocrSettings.HeaderTexts);
+        this._footerTextTemplate = new TextTemplate("footer", ocrSettings.FooterTexts);
+        this._currentTextTemplate = new TextTemplate("current", ocrSettings.CurrentTexts, TemplateSearchOptions.FindLast);
+        this._startTextTemplate = new TextTemplate("start", ocrSettings.StartTexts);
+        this._currentPositionTextTemplate = new TextTemplate("currentPosition", ocrSettings.CurrentPositionTexts);
+
     }
 
     private TesseractEngine GetEngine()
@@ -90,7 +99,7 @@ public class OcrEngine : IOcrEngine
             Match? currentPositionMatch = FindMatchWithMatchingText(
                 engine,
                 sourceImage,
-                CurrentPositionTextTemplate,
+                _currentPositionTextTemplate,
                 CurrentPositionDebugDirectoryPathParts,
                 pageSegMode, 
                 pageIteratorLevel
@@ -173,11 +182,11 @@ public class OcrEngine : IOcrEngine
         return Task.FromResult(new Hint(searchObject, direction.Arrow));
     }
 
-    private static string DetermineTextName(Match current)
+    private string DetermineTextName(Match current)
     {
         var endIndex = -1;
-        for (var i = 0; i < CurrentTextTemplate.OrTemplates.Length && endIndex == -1; i++)
-            endIndex = current.Text.IndexOf(CurrentTextTemplate.OrTemplates[i], StringComparison.OrdinalIgnoreCase);
+        for (var i = 0; i < this._currentTextTemplate.OrTemplates.Count && endIndex == -1; i++)
+            endIndex = current.Text.IndexOf(_currentTextTemplate.OrTemplates.ElementAt(i), StringComparison.OrdinalIgnoreCase);
 
         var firstLetter = current.Text.IndexOf(current.Text.FirstOrDefault(char.IsLetter));
         
@@ -249,13 +258,13 @@ public class OcrEngine : IOcrEngine
         Dictionary<string, Match>? matches = FindMatchWithMatchingText(
             engine,
             huntBox,
-            [ CurrentTextTemplate, StartTextTemplate ],
+            [ _currentTextTemplate, _startTextTemplate ],
             BoxDetailsDebugDirectoryPathParts,
             exitCondition: (_, _) => false,
             onMatchFound: (template, result, newMatch) =>
             {
-                if (template.Name == StartTextTemplate.Name 
-                    || result.TryGetValue(CurrentTextTemplate.Name, out var existingMatch) is false)
+                if (template.Name == _startTextTemplate.Name 
+                    || result.TryGetValue(_currentTextTemplate.Name, out var existingMatch) is false)
                 {
                     result.Add(template.Name, newMatch);
                     return;
@@ -263,15 +272,15 @@ public class OcrEngine : IOcrEngine
 
                 if (existingMatch.Rectangle.Y < newMatch.Rectangle.Y)
                 {
-                    result[CurrentTextTemplate.Name] = newMatch;
+                    result[_currentTextTemplate.Name] = newMatch;
                 }
             },
             pageSegMode, 
             pageIteratorLevel
         );
 
-        Match? current = matches.GetValueOrDefault(CurrentTextTemplate.Name);
-        Match? start = matches.GetValueOrDefault(StartTextTemplate.Name);
+        Match? current = matches.GetValueOrDefault(_currentTextTemplate.Name);
+        Match? start = matches.GetValueOrDefault(_startTextTemplate.Name);
 
         if (start is null)
             throw new OcrCouldNotFindRequiredElement(nameof(start));
@@ -284,7 +293,8 @@ public class OcrEngine : IOcrEngine
 
     private Bitmap GetHuntBoxImage(Bitmap screenShot)
     {
-        const PageSegMode pageSegMode = PageSegMode.SparseText;
+        // const PageSegMode pageSegMode = PageSegMode.SparseText;
+        const PageSegMode pageSegMode = PageSegMode.SingleLine;
         const PageIteratorLevel pageIteratorLevel = PageIteratorLevel.Block;
 
         using var engine = GetEngine();
@@ -292,7 +302,7 @@ public class OcrEngine : IOcrEngine
         Match? header = FindMatchWithMatchingText(
             engine, 
             screenShot,
-            HeaderTextTemplate,
+            _headerTextTemplate,
             HeaderDebugDirectoryPathParts,
             pageSegMode, 
             pageIteratorLevel
@@ -307,7 +317,7 @@ public class OcrEngine : IOcrEngine
         Match? footer = FindMatchWithMatchingText(
             engine, 
             roughBoxImage,
-            FooterTextTemplate,
+            _footerTextTemplate,
             FooterDebugDirectoryPathParts,
             pageSegMode, 
             pageIteratorLevel,
@@ -473,7 +483,7 @@ public class OcrEngine : IOcrEngine
 
     private void LogInfo(string log) => Console.WriteLine(log);
 
-    private static bool CompareTextWithPossibleMatches(string source, string[] matches)
+    private static bool CompareTextWithPossibleMatches(string source, IReadOnlyCollection<string> matches)
     {
         return matches.Any(x => source.Contains(x, StringComparison.OrdinalIgnoreCase));
     }
@@ -484,7 +494,7 @@ public class OcrEngine : IOcrEngine
     }
 }
 
-public record TextTemplate(string Name, string[] OrTemplates, TemplateSearchOptions SearchOption = TemplateSearchOptions.None);
+public record TextTemplate(string Name, IReadOnlyCollection<string> OrTemplates, TemplateSearchOptions SearchOption = TemplateSearchOptions.None);
 
 public enum TemplateSearchOptions
 {

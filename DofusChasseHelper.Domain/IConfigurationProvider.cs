@@ -7,4 +7,5 @@ public interface IConfigurationProvider
     bool ShouldUseFullscreenScreenshot();
     BrowserHuntSolver GetHuntSolverToUse();
     HuntBoxApproximation GetHuntBoxApproximationSettings();
+    OcrSettings GetOcrSettings();
 }
