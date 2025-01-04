@@ -51,7 +51,7 @@ public class ConfigurationProvider : IConfigurationProvider
     {
         var config = ReadConfig();
 
-        return new HuntBoxApproximation(config.HuntBoxApproximation.Witdh, config.HuntBoxApproximation.Height);
+        return new HuntBoxApproximation(config.HuntBoxApproximation.Width, config.HuntBoxApproximation.Height);
     }
 
     public OcrSettings GetOcrSettings()
@@ -100,8 +100,8 @@ public class Config
     
     public class HuntBoxApproximationDto
     {
-        [JsonPropertyName("witdh")]
-        public int Witdh { get; set; }
+        [JsonPropertyName("width")]
+        public int Width { get; set; }
         [JsonPropertyName("height")]
         public int Height { get; set; }
     }

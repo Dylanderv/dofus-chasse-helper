@@ -184,6 +184,8 @@ public class OcrEngine : IOcrEngine
 
     private string DetermineTextName(Match current)
     {
+        char[] impossibleFirstLetter = ['À'];
+        
         var endIndex = -1;
         for (var i = 0; i < this._currentTextTemplate.OrTemplates.Count && endIndex == -1; i++)
             endIndex = current.Text.IndexOf(_currentTextTemplate.OrTemplates.ElementAt(i), StringComparison.OrdinalIgnoreCase);
@@ -209,6 +211,12 @@ public class OcrEngine : IOcrEngine
                 }
             }
         }
+
+        while (impossibleFirstLetter.Contains(searchObject.First()))
+        {
+            searchObject = searchObject[1..];
+        }
+        
         
         if (searchObject.All(x => char.IsLetter(x) || char.IsWhiteSpace(x)))
         {
@@ -293,8 +301,7 @@ public class OcrEngine : IOcrEngine
 
     private Bitmap GetHuntBoxImage(Bitmap screenShot)
     {
-        // const PageSegMode pageSegMode = PageSegMode.SparseText;
-        const PageSegMode pageSegMode = PageSegMode.SingleLine;
+        const PageSegMode pageSegMode = PageSegMode.SparseText;
         const PageIteratorLevel pageIteratorLevel = PageIteratorLevel.Block;
 
         using var engine = GetEngine();
