@@ -59,6 +59,7 @@ public class ConfigurationProvider : IConfigurationProvider
         var config = ReadConfig();
 
         return new OcrSettings(
+            IsHuntBoxInTopLeftCorner: config.Ocr.IsHuntBoxInTopLeftCorner,
             HeaderTexts: config.Ocr.HeaderTexts,
             FooterTexts: config.Ocr.FooterTexts,
             CurrentTexts: config.Ocr.CurrentTexts,
@@ -90,6 +91,7 @@ public class Config
     
     public class OcrSettingsDto
     {
+        public bool IsHuntBoxInTopLeftCorner { get; set; } = false;
         public string[] HeaderTexts { get; set; } = ["CHASSE AUX TRÉSOR"];
         public string[] FooterTexts { get; set; } = ["essais restants", "essai restant", "essais restant"];
         public string[] CurrentTexts { get; set; } = ["encours", "en cours"];

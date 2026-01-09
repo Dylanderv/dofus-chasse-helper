@@ -95,15 +95,27 @@ public class OcrEngine : IOcrEngine
 
             const PageSegMode pageSegMode = PageSegMode.SingleColumn;
             const PageIteratorLevel pageIteratorLevel = PageIteratorLevel.TextLine;
-            
+
             Match? currentPositionMatch = FindMatchWithMatchingText(
                 engine,
                 sourceImage,
                 _currentPositionTextTemplate,
                 CurrentPositionDebugDirectoryPathParts,
-                pageSegMode, 
+                pageSegMode,
                 pageIteratorLevel
             );
+            
+            if (currentPositionMatch is null)
+            {
+                currentPositionMatch = FindMatchWithMatchingText(
+                    engine,
+                    sourceImage,
+                    _currentPositionTextTemplate,
+                    CurrentPositionDebugDirectoryPathParts,
+                    PageSegMode.SparseText,
+                    PageIteratorLevel.Block
+                );
+            }
 
             if (currentPositionMatch is null)
             {
@@ -185,6 +197,11 @@ public class OcrEngine : IOcrEngine
     private string DetermineTextName(Match current)
     {
         char[] impossibleFirstLetter = ['À'];
+        Dictionary<string, string> difficultToMatch = new Dictionary<string, string>()
+        {
+            { "de shushu peint", "Oeil de shushu peint" },
+            { "Trace de mainensang", "Trace de main en sang" },
+        };
         
         var endIndex = -1;
         for (var i = 0; i < this._currentTextTemplate.OrTemplates.Count && endIndex == -1; i++)
@@ -215,6 +232,14 @@ public class OcrEngine : IOcrEngine
         while (impossibleFirstLetter.Contains(searchObject.First()))
         {
             searchObject = searchObject[1..];
+        }
+
+        foreach (var match in difficultToMatch)
+        {
+            if (searchObject.Contains(match.Key))
+            {
+                return match.Value;
+            }
         }
         
         
@@ -306,9 +331,13 @@ public class OcrEngine : IOcrEngine
 
         using var engine = GetEngine();
 
+        using Bitmap image = this._configurationProvider.GetOcrSettings().IsHuntBoxInTopLeftCorner
+            ? this.GetSubImage(screenShot, new Rectangle(0, 0, screenShot.Width / 2, screenShot.Height / 2))
+            : screenShot;
+        
         Match? header = FindMatchWithMatchingText(
             engine, 
-            screenShot,
+            image,
             _headerTextTemplate,
             HeaderDebugDirectoryPathParts,
             pageSegMode, 
@@ -433,16 +462,30 @@ public class OcrEngine : IOcrEngine
 
     private Bitmap SaveSubImage(Bitmap screenShot, Rectangle roughBoxSize, string[] pathParts)
     {
-        Bitmap? roughBoxImage = null;
-        try
-        {
-            roughBoxImage = screenShot.Clone(roughBoxSize, screenShot.PixelFormat);
-            roughBoxImage.Save(this.BuildPath(pathParts));
-            return roughBoxImage;
+        Bitmap? bitmap = GetSubImage(screenShot, roughBoxSize);
+        try {
+            bitmap.Save(this.BuildPath(pathParts));
         }
         catch
         {
-            roughBoxImage?.Dispose();
+            bitmap?.Dispose();
+            throw;
+        }
+
+        return bitmap;
+    }
+
+    private Bitmap GetSubImage(Bitmap screenShot, Rectangle roughBoxSize)
+    {
+        Bitmap? subImage = null;
+        try
+        {
+            subImage = screenShot.Clone(roughBoxSize, screenShot.PixelFormat);
+            return subImage;
+        }
+        catch
+        {
+            subImage?.Dispose();
             throw;
         }
     }

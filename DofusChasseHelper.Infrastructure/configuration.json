@@ -8,6 +8,7 @@
   },
   "browserHuntSolver": "DofusPourLesNoobs",
   "ocr": {
+    "IsHuntBoxInTopLeftCorner": true,
     "HeaderTexts": ["CHASSE AUX TRÉSOR"],
     "FooterTexts": ["essais restants", "essai restant", "essais restant"],
     "CurrentTexts": ["encours", "en cours"],
